@@ -19,24 +19,24 @@ namespace UltraVoice
 
         private PluginConfigurator config;
 
-        public const string MEATGRINDER_SCENE = "7927c42db92e4164cae682a55e6b7725";
-        public const string DOUBLEDOWN_SCENE = "5bcb2e0461e7fce408badfcb6778c271";
-        public const string CLAIRDELUNE_SCENE = "36abcaae9708abc4d9e89e6ec73a2846";
-        public const string CLAIRDESOLEIL_SCENE = "ac1675e648695a343bd064c6d0c56e57";
-        public const string LIKEANTENNAS_SCENE = "6e981b1865c649749a610aafc471e198";
-        public const string THROUGHTHEMIRROR_SCENE = "45addc6c3730dae418321e00af1116c5";
+        public const string PreludeSecondScene = "7927c42db92e4164cae682a55e6b7725";
+        public const string PreludeThirdScene = "5bcb2e0461e7fce408badfcb6778c271";
+        public const string LimboClimaxScene = "36abcaae9708abc4d9e89e6ec73a2846";
+        public const string GreedClimaxScene = "ac1675e648695a343bd064c6d0c56e57";
+        public const string ViolenceClimaxScene = "6e981b1865c649749a610aafc471e198";
+        public const string FraudSecondScene = "45addc6c3730dae418321e00af1116c5";
 
         public static float LastVoiceTime = -999f;
         public static float V2IntroTime = -999f;
 
         public static bool SwordsmachineIntroPlayed;
         public static bool V2DiedDuringFight;
-        public static bool GreenArmVoicePlayed = false;
-        public static bool GreenArmVoiceRestartPlayed = false;
-        public static bool GreenArmDeathPlayed = false;
+        public static bool V2CutsceneVoicePlayed = false;
+        public static bool V2VoiceRestartPlayed = false;
+        public static bool V2DeathPlayed = false;
         public static bool FerrymanCoinTossed = false;
         public static bool FerrymanPhaseChangePlayed = false;
-        public static bool GuttertankSpawnSkippedInMirror = false;
+        public static bool GuttertankSpawnInMirror = false;
 
         public static BoolField CerberusVoiceEnabled;
         public static BoolField SwordsmachineVoiceEnabled;
@@ -1250,8 +1250,8 @@ namespace UltraVoice
         {
             UltraVoice.SwordsmachineIntroPlayed = false;
             UltraVoice.V2IntroTime = -999f;
-            UltraVoice.GreenArmVoicePlayed = false;
-            UltraVoice.GreenArmVoiceRestartPlayed = false;
+            UltraVoice.V2CutsceneVoicePlayed = false;
+            UltraVoice.V2VoiceRestartPlayed = false;
             UltraVoice.FerrymanPhaseChangePlayed = false;
         }
     }
@@ -1263,7 +1263,7 @@ namespace UltraVoice
         {
             UltraVoice.SwordsmachineIntroPlayed = false;
             UltraVoice.V2IntroTime = -999f;
-            UltraVoice.GreenArmVoiceRestartPlayed = false;
+            UltraVoice.V2VoiceRestartPlayed = false;
             UltraVoice.FerrymanPhaseChangePlayed = false;
         }
     }
@@ -1275,7 +1275,7 @@ namespace UltraVoice
         {
             UltraVoice.SwordsmachineIntroPlayed = false;
             UltraVoice.V2IntroTime = -999f;
-            UltraVoice.GreenArmVoiceRestartPlayed = false;
+            UltraVoice.V2VoiceRestartPlayed = false;
             UltraVoice.FerrymanPhaseChangePlayed = false;
         }
     }
@@ -1500,7 +1500,7 @@ namespace UltraVoice
 
             if (__instance.bossVersion)
             {
-                if (SceneManager.GetActiveScene().name != UltraVoice.DOUBLEDOWN_SCENE)
+                if (SceneManager.GetActiveScene().name != UltraVoice.PreludeThirdScene)
                     return;
 
                 UltraVoice.Instance.StartCoroutine(Play(__instance));
@@ -1512,7 +1512,7 @@ namespace UltraVoice
 
             if (!__instance.bossVersion)
             {
-                if (SceneManager.GetActiveScene().name == UltraVoice.MEATGRINDER_SCENE)
+                if (SceneManager.GetActiveScene().name == UltraVoice.PreludeSecondScene)
                     return;
 
                 UltraVoice.PlayRandomVoice(
@@ -1890,7 +1890,7 @@ namespace UltraVoice
             if (__instance.secondEncounter)
                 return;
 
-            if (SceneManager.GetActiveScene().name != UltraVoice.CLAIRDELUNE_SCENE)
+            if (SceneManager.GetActiveScene().name != UltraVoice.LimboClimaxScene)
                 return;
 
             if (!__instance.inIntro)
@@ -1954,13 +1954,13 @@ namespace UltraVoice
                 UltraVoice.Instance.StartCoroutine(PlayRestart(__instance));
 
             if (__instance.secondEncounter)
-                if (!UltraVoice.GreenArmVoiceRestartPlayed)
+                if (!UltraVoice.V2VoiceRestartPlayed)
                     UltraVoice.Instance.StartCoroutine(PlayRestartSecond(__instance));
         }
 
         static IEnumerator PlayRestart(V2 v2)
         {
-            if (SceneManager.GetActiveScene().name != UltraVoice.CLAIRDELUNE_SCENE)
+            if (SceneManager.GetActiveScene().name != UltraVoice.LimboClimaxScene)
                 yield break;
 
             yield return new WaitForSeconds(1f);
@@ -1981,7 +1981,7 @@ namespace UltraVoice
 
         static IEnumerator PlayRestartSecond(V2 v2)
         {
-            if (SceneManager.GetActiveScene().name != UltraVoice.CLAIRDESOLEIL_SCENE)
+            if (SceneManager.GetActiveScene().name != UltraVoice.GreedClimaxScene)
                 yield break;
 
             var src = UltraVoice.CreateVoiceSource(
@@ -1996,7 +1996,7 @@ namespace UltraVoice
 
             UltraVoice.V2IntroTime = Time.time;
             UltraVoice.SpawnVoiceEndTimes[v2] = Time.time + UltraVoice.V2IntroSecondRestartClip.length;
-            UltraVoice.GreenArmVoiceRestartPlayed = true;
+            UltraVoice.V2VoiceRestartPlayed = true;
         }
     }
 
@@ -2217,17 +2217,17 @@ namespace UltraVoice
 
             var go = __instance.gameObject;
 
-            if (go.name != "v2_GreenArm")
+            if (go.name != "v2_V2")
                 return;
 
-            if (UltraVoice.GreenArmVoicePlayed)
+            if (UltraVoice.V2CutsceneVoicePlayed)
                 return;
 
             UltraVoice.Instance.StartCoroutine(Play(__instance));
         }
         static IEnumerator Play(Animator v2)
         {
-            UltraVoice.GreenArmVoicePlayed = true;
+            UltraVoice.V2CutsceneVoicePlayed = true;
 
             var src = UltraVoice.CreateVoiceSource(
                 v2,
@@ -2261,7 +2261,7 @@ namespace UltraVoice
             if (!UltraVoice.V2VoiceEnabled.value)
                 return;
 
-            if (__instance.name != "v2_GreenArm")
+            if (__instance.name != "v2_V2")
                 return;
 
             Transform t = __instance.transform;
@@ -2282,7 +2282,7 @@ namespace UltraVoice
 
             UltraVoice.CreateVoiceSource(
                 __instance.transform,
-                "GreenArmDeath",
+                "V2Death",
                 UltraVoice.V2DeathClip,
                 "NOOOOOOO"
             );
@@ -3044,9 +3044,9 @@ namespace UltraVoice
             if (!UltraVoice.GuttertankVoiceEnabled.value)
                 return;
 
-            if (SceneManager.GetActiveScene().name == UltraVoice.THROUGHTHEMIRROR_SCENE && !UltraVoice.GuttertankSpawnSkippedInMirror)
+            if (SceneManager.GetActiveScene().name == UltraVoice.FraudSecondScene && !UltraVoice.GuttertankSpawnInMirror)
             {
-                UltraVoice.GuttertankSpawnSkippedInMirror = true;
+                UltraVoice.GuttertankSpawnInMirror = true;
                 UltraVoice.EnemySpawnTimes[__instance] = Time.time;
                 return;
             }
@@ -3146,36 +3146,6 @@ namespace UltraVoice
                     () => UltraVoice.GuttertankDeathClips != null && UltraVoice.GuttertankDeathClips.Length > 0,
                     __instance
                 ));
-        }
-    }
-
-    [HarmonyPatch(typeof(MusicManager), "Update")]
-    public class MusicManager_Update_Patch
-    {
-        static AudioClip lastClip;
-
-        static void Postfix(MusicManager __instance)
-        {
-            var src = __instance.targetTheme;
-            if (src == null || src.clip == null)
-                return;
-
-            if (src.clip != lastClip)
-            {
-                lastClip = src.clip;
-
-                if (src.clip.name == "Centaur A-1")
-                {
-                    UltraVoice.Instance.StartCoroutine(PlayCentaurVoice());
-                }
-            }
-        }
-
-        private static IEnumerator PlayCentaurVoice()
-        {
-            yield return new WaitForSeconds(1f);
-
-            UltraVoice.ShowSubtitle("TESTING... TESTING. ONE, TWO, THREE...", null);
         }
     }
 }
