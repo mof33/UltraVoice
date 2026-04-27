@@ -12,7 +12,7 @@ using UltraVoice.Utilities;
 
 namespace UltraVoice
 {
-    [BepInPlugin("com.yourname.ultravoice", "UltraVoice", "1.0.0")]
+    [BepInPlugin("com.yourname.ultravoice", "UltraVoice", "0.9.8")]
     [BepInDependency("com.eternalUnion.pluginConfigurator")]
     public class UltraVoicePlugin : BaseUnityPlugin
     {
@@ -32,6 +32,9 @@ namespace UltraVoice
         public static BoolField MannequinVoiceEnabled;
         public static BoolField GuttertankVoiceEnabled;
         public static BoolField ProvidenceVoiceEnabled;
+        public static BoolField SentryVoiceEnabled;
+        public static BoolField MauriceVoiceEnabled;
+        public static BoolField EarthmoverVoiceEnabled;
         public static FloatField VoiceCooldown;
         public static FloatField VoiceVolume;
         public static EnumField<SwordsmachineVoiceActor> SwordsmachineVoiceActorField;
@@ -140,13 +143,34 @@ namespace UltraVoice
                 true
             );
 
+            SentryVoiceEnabled = new BoolField(
+                TogglesPanel,
+                "Enable Sentry Voice Lines",
+                "sentryvoice",
+                true
+            );
+
+            MauriceVoiceEnabled = new BoolField(
+                TogglesPanel,
+                "Enable Malicious Face Voice Lines",
+                "mauricevoice",
+                true
+            );
+
+            EarthmoverVoiceEnabled = new BoolField(
+                TogglesPanel,
+                "Enable Earthmover Voice Lines",
+                "earthmovervoice",
+                true
+            );
+
             VoiceCooldown = new FloatField(
                 SlidersPanel,
                 "Voice Cooldown",
                 "cooldown",
                 0.25f,
                 0f,
-                1f
+                0.35f
             );
 
             VoiceVolume = new FloatField(
@@ -184,7 +208,8 @@ namespace UltraVoice
 
         void ResetCharacterStates()
         {
-            Swordsmachine.FirstFightDone = false;
+            SwordsmachineCharacter.FirstFightDone = false;
+            SwordsmachineCharacter.FirstFightLinePlayed = false;
 
             V2Character.V2IntroTime = -999f;
             V2Character.V2CutsceneVoicePlayed = false;
@@ -213,8 +238,8 @@ namespace UltraVoice
             }
 
             // Load character voice lines
-            Cerberus.LoadVoiceLines(bundle, Logger);
-            Swordsmachine.LoadVoiceLines(bundle, Logger);
+            CerberusCharacter.LoadVoiceLines(bundle, Logger);
+            SwordsmachineCharacter.LoadVoiceLines(bundle, Logger);
             V2Character.LoadVoiceLines(bundle, Logger);
             MindflayerCharacter.LoadVoiceLines(bundle, Logger);
             VirtueCharacter.LoadVoiceLines(bundle, Logger);
@@ -224,6 +249,9 @@ namespace UltraVoice
             GuttermanCharacter.LoadVoiceLines(bundle, Logger);
             GuttertankCharacter.LoadVoiceLines(bundle, Logger);
             ProvidenceCharacter.LoadVoiceLines(bundle, Logger);
+            SentryCharacter.LoadVoiceLines(bundle, Logger);
+            MaliciousFaceCharacter.LoadVoiceLines(bundle, Logger);
+            EarthmoverCharacter.LoadVoiceLines(bundle, Logger);
         }
 
         public static AudioClip LoadClip(AssetBundle bundle, string name)
