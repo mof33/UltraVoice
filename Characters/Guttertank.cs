@@ -155,6 +155,8 @@ namespace UltraVoice.Characters
                     __instance
                 ));
 
+            if (__instance.dead || __instance == null) return;
+
             UltraVoicePlugin.Instance.StartCoroutine(DelayedPunchTripVox(__instance));
         }
 

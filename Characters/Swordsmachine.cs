@@ -399,7 +399,7 @@ namespace UltraVoice.Characters
                 true
             );
 
-            if (__instance.bossVersion && !SwordsmachineCharacter.FirstFightLinePlayed)
+            if (__instance.bossVersion && UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "5bcb2e0461e7fce408badfcb6778c271" && !SwordsmachineCharacter.FirstFightLinePlayed)
                 UltraVoicePlugin.Instance.StartCoroutine(PlayKnockdownSpecial(__instance));
             else
                 UltraVoicePlugin.Instance.StartCoroutine(PlayKnockdown(__instance));
@@ -407,7 +407,7 @@ namespace UltraVoice.Characters
 
         static IEnumerator PlayKnockdown(SwordsMachine sm)
         {
-            yield return new WaitForSeconds(0.75f);
+            yield return new WaitForSeconds(0.85f);
 
             int i = UnityEngine.Random.Range(0, SwordsmachineCharacter.KnockdownClips.Length);
 
@@ -416,7 +416,7 @@ namespace UltraVoice.Characters
                 "SwordsmachineKnockdown",
                 SwordsmachineCharacter.UseSwordsmachineClip(SwordsmachineCharacter.KnockdownClips[i], SwordsmachineCharacter.KnockdownClipsNoto[i]),
                 SwordsmachineCharacter.KnockdownSubs[i],
-                false,
+                true,
                 SwordsmachineCharacter.GetColorOverride(sm)
             );
         }
@@ -424,14 +424,14 @@ namespace UltraVoice.Characters
         static IEnumerator PlayKnockdownSpecial(SwordsMachine sm)
         {
             SwordsmachineCharacter.FirstFightLinePlayed = true;
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.85f);
 
             var src = VoiceManager.CreateVoiceSource(
                 sm,
                 "SwordsmachineKnockdownSpecial",
                 SwordsmachineCharacter.UseSwordsmachineClip(SwordsmachineCharacter.KnockdownClipSpecial, SwordsmachineCharacter.KnockdownClipSpecialNoto),
                 "YOU’RE NOT OFF THE HOOK YET, YOU HEAR ME",
-                false,
+                true,
                 SwordsmachineCharacter.GetColorOverride(sm)
             );
 
@@ -491,7 +491,7 @@ namespace UltraVoice.Characters
                     "AgonyKnockdown",
                     SwordsmachineCharacter.UseSwordsmachineClip(SwordsmachineCharacter.AgonyKnockdownClip, SwordsmachineCharacter.AgonyKnockdownClipNoto),
                     "DAMMIT!",
-                    false,
+                    true,
                     SwordsmachineCharacter.AgonyColor
                 );
             }
@@ -502,7 +502,7 @@ namespace UltraVoice.Characters
                     "TundraKnockdown",
                     SwordsmachineCharacter.UseSwordsmachineClip(SwordsmachineCharacter.TundraKnockdownClip, SwordsmachineCharacter.TundraKnockdownClipNoto),
                     "COVER ME!",
-                    false,
+                    true,
                     SwordsmachineCharacter.TundraColor
                 );
             }
