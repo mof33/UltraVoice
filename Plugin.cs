@@ -1,18 +1,20 @@
-using BepInEx;
+﻿using BepInEx;
 using HarmonyLib;
 using PluginConfig.API;
 using PluginConfig.API.Fields;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+using System.Net;
+using System.Reflection;
 using UltraVoice.Characters;
 using UltraVoice.Utilities;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace UltraVoice
 {
-    [BepInPlugin("com.yourname.ultravoice", "UltraVoice", "1.0.0")]
+    [BepInPlugin("com.mel33.ultravoice", "UltraVoice", "1.0.0")]
     [BepInDependency("com.eternalUnion.pluginConfigurator")]
     public class UltraVoicePlugin : BaseUnityPlugin
     {
@@ -59,9 +61,9 @@ namespace UltraVoice
             Instance = this;
             VoiceManager = new VoiceManager();
 
-            config = PluginConfigurator.Create("UltraVoice", "com.yourname.ultravoice");
+            config = PluginConfigurator.Create("UltraVoice", "com.mel33.ultravoice");
 
-            config.SetIconWithURL("https://storage.filebin.net/filebin/b20425983c28fd7feab09818ce6af10c2e766bd0e547ab3bd40a9709c9474171?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=GK352fd2505074fc9dde7fd2cb%2F20260331%2Fhel1-dc4%2Fs3%2Faws4_request&X-Amz-Date=20260331T220455Z&X-Amz-Expires=900&X-Amz-SignedHeaders=host&response-cache-control=max-age%3D900&response-content-disposition=inline%3B%20filename%3D%22icon.png%22&response-content-type=image%2Fpng&x-id=GetObject&X-Amz-Signature=965a1e646897a43091c19c99eaae70175fefe00de01754a84238fa971ba6780b");
+            config.SetIconWithURL("https://filebin.net/xcwluh1i8mu3o41d/icon.png");
 
             // Create panels
             TogglesPanel = new ConfigPanel(config.rootPanel, "Enemy Line Toggles", "toggles");
@@ -212,7 +214,7 @@ namespace UltraVoice
 
             LoadAssets();
 
-            new Harmony("com.yourname.ultravoice").PatchAll();
+            new Harmony("com.mel33.ultravoice").PatchAll();
 
             SceneManager.sceneLoaded += OnSceneLoaded;
 
@@ -244,45 +246,60 @@ namespace UltraVoice
 
         void LoadAssets()
         {
-            string bundlePath = Path.Combine(
-                Path.GetDirectoryName(Info.Location),
-                "ultravoiceassets"
-            );
-
-            var bundle = AssetBundle.LoadFromFile(bundlePath);
-
-            if (bundle == null)
-            {
-                Logger.LogError("UltraVoice: Failed to load asset bundle.");
-                return;
-            }
-
-            // Load character voice lines
-            CerberusCharacter.LoadVoiceLines(bundle, Logger);
-            SwordsmachineCharacter.LoadVoiceLines(bundle, Logger);
-            V2Character.LoadVoiceLines(bundle, Logger);
-            MindflayerCharacter.LoadVoiceLines(bundle, Logger);
-            VirtueCharacter.LoadVoiceLines(bundle, Logger);
-            StreetcleanerCharacter.LoadVoiceLines(bundle, Logger);
-            FerrymanCharacter.LoadVoiceLines(bundle, Logger);
-            MannequinCharacter.LoadVoiceLines(bundle, Logger);
-            GuttermanCharacter.LoadVoiceLines(bundle, Logger);
-            GuttertankCharacter.LoadVoiceLines(bundle, Logger);
-            ProvidenceCharacter.LoadVoiceLines(bundle, Logger);
-            SentryCharacter.LoadVoiceLines(bundle, Logger);
-            MaliciousFaceCharacter.LoadVoiceLines(bundle, Logger);
-            EarthmoverCharacter.LoadVoiceLines(bundle, Logger);
-            MirrorReaperCharacter.LoadVoiceLines(bundle, Logger);
+            // Load character voice lines from embedded resources
+            CerberusCharacter.LoadVoiceLines(Logger);
+            SwordsmachineCharacter.LoadVoiceLines(Logger);
+            V2Character.LoadVoiceLines(Logger);
+            MindflayerCharacter.LoadVoiceLines(Logger);
+            VirtueCharacter.LoadVoiceLines(Logger);
+            StreetcleanerCharacter.LoadVoiceLines(Logger);
+            FerrymanCharacter.LoadVoiceLines(Logger);
+            MannequinCharacter.LoadVoiceLines(Logger);
+            GuttermanCharacter.LoadVoiceLines(Logger);
+            GuttertankCharacter.LoadVoiceLines(Logger);
+            ProvidenceCharacter.LoadVoiceLines(Logger);
+            SentryCharacter.LoadVoiceLines(Logger);
+            MaliciousFaceCharacter.LoadVoiceLines(Logger);
+            EarthmoverCharacter.LoadVoiceLines(Logger);
+            MirrorReaperCharacter.LoadVoiceLines(Logger);
         }
 
-        public static AudioClip LoadClip(AssetBundle bundle, string name)
+        public static AudioClip LoadClip(string resourcePath)
         {
-            var clip = bundle.LoadAsset<AudioClip>(name);
+            try
+            {
+                Assembly assembly = Assembly.GetExecutingAssembly();
 
-            if (clip == null)
-                Instance.Logger.LogWarning($"UltraVoice missing clip: {name}");
+                if (!resourcePath.StartsWith("UltraVoice.Resources."))
+                    resourcePath = $"UltraVoice.Resources.{resourcePath}";
 
-            return clip;
+                using (Stream stream = assembly.GetManifestResourceStream(resourcePath))
+                {
+                    if (stream == null)
+                    {
+                        Instance.Logger.LogWarning($"UltraVoice missing clip: {resourcePath}");
+                        return null;
+                    }
+
+                    byte[] audioData = new byte[stream.Length];
+                    stream.Read(audioData, 0, audioData.Length);
+
+                    AudioClip clip = WavUtility.ToAudioClip(audioData);
+
+                    if (clip == null)
+                    {
+                        Instance.Logger.LogWarning($"UltraVoice failed to convert clip: {resourcePath}");
+                        return null;
+                    }
+
+                    return clip;
+                }
+            }
+            catch (System.Exception e)
+            {
+                Instance.Logger.LogError($"UltraVoice error loading clip {resourcePath}: {e}");
+                return null;
+            }
         }
 
         public static IEnumerator DelayedVox(System.Action playAction, System.Func<bool> ready, UnityEngine.Component attached)
