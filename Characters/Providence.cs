@@ -147,7 +147,7 @@ namespace UltraVoice.Characters
         }
     }
 
-    [HarmonyPatch(typeof(Drone), "Dodge", new System.Type[] { typeof(Vector3) })]
+    [HarmonyPatch(typeof(Drone), "DodgeLaugh")]
     class ProvidenceDodgePatch
     {
         static void Postfix(Drone __instance)

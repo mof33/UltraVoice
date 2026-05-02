@@ -75,7 +75,7 @@ namespace UltraVoice.Characters
                       EarthmoverCharacter.IntroClip,
                       "MULTIPLE MACHINE SIGNATURES PRESENT ON RADAR",
                       true,
-                      volumeMult: 2f,
+                      volumeMult: 3f,
                       spatialBlend: 0f
                 );
 
@@ -119,7 +119,7 @@ namespace UltraVoice.Characters
                       EarthmoverCharacter.BloodVentClip,
                       "CONTAMINATED BLOOD DETECTED IN FUEL TANK B",
                       true,
-                      volumeMult: 2f,
+                      volumeMult: 3f,
                       spatialBlend: 0f
                 );
 
@@ -251,7 +251,7 @@ namespace UltraVoice.Characters
                       EarthmoverCharacter.BrainBattleClip,
                       "UNAUTHORIZED PERSONNEL HAS BREACHED CENTRAL CONTROL TOWER",
                       true,
-                      volumeMult: 2f,
+                      volumeMult: 3f,
                       spatialBlend: 0f
                 );
 
@@ -295,7 +295,7 @@ namespace UltraVoice.Characters
                       EarthmoverCharacter.BrainKilledClip,
                       "CRITICAL DAMAGE DETECTED IN CENTRAL CONTROL TOWER!",
                       true,
-                      volumeMult: 2f,
+                      volumeMult: 3f,
                       spatialBlend: 0f
                 );
 

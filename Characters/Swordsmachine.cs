@@ -399,7 +399,7 @@ namespace UltraVoice.Characters
                 true
             );
 
-            if (__instance.bossVersion && UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "5bcb2e0461e7fce408badfcb6778c271" && !SwordsmachineCharacter.FirstFightLinePlayed)
+            if (__instance.bossVersion && UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "5bcb2e0461e7fce408badfcb6778c271" && __instance.difficulty <= 2 && !SwordsmachineCharacter.FirstFightLinePlayed)
                 UltraVoicePlugin.Instance.StartCoroutine(PlayKnockdownSpecial(__instance));
             else
                 UltraVoicePlugin.Instance.StartCoroutine(PlayKnockdown(__instance));
@@ -437,11 +437,17 @@ namespace UltraVoice.Characters
 
             yield return new WaitForSeconds(2f);
 
+            if (src == null)
+                yield break;
+
             VoiceManager.ShowSubtitle(
                 "I'LL",
                 src,
                 SwordsmachineCharacter.GetColorOverride(sm)
             );
+
+            if (src == null)
+                yield break;
 
             yield return new WaitForSeconds(0.5f);
 
@@ -450,6 +456,9 @@ namespace UltraVoice.Characters
                 src,
                 SwordsmachineCharacter.GetColorOverride(sm)
             );
+
+            if (src == null)
+                yield break;
 
             yield return new WaitForSeconds(0.5f);
 
@@ -467,6 +476,9 @@ namespace UltraVoice.Characters
         static void Postfix(SwordsMachine __instance)
         {
             if (!UltraVoicePlugin.SwordsmachineVoiceEnabled.value)
+                return;
+
+            if (!VoiceManager.CheckCooldown(__instance, 0.1f))
                 return;
 
             VoiceManager.CreateVoiceSource(
@@ -533,7 +545,7 @@ namespace UltraVoice.Characters
             if (VoiceManager.IsEnemyVoicePlaying(__instance))
                 return;
 
-            if (VoiceManager.TooSoonAfterSpawn(__instance, 5f))
+            if (VoiceManager.TooSoonAfterSpawn(__instance, 2f))
                 return;
 
             VoiceManager.PlayRandomVoice(__instance, "Swordsmachine",
@@ -558,7 +570,7 @@ namespace UltraVoice.Characters
             if (VoiceManager.IsEnemyVoicePlaying(__instance))
                 return;
 
-            if (VoiceManager.TooSoonAfterSpawn(__instance, 5f))
+            if (VoiceManager.TooSoonAfterSpawn(__instance, 2f))
                 return;
 
             VoiceManager.PlayRandomVoice(__instance, "Swordsmachine",
@@ -583,7 +595,7 @@ namespace UltraVoice.Characters
             if (VoiceManager.IsEnemyVoicePlaying(__instance))
                 return;
 
-            if (VoiceManager.TooSoonAfterSpawn(__instance, 5f))
+            if (VoiceManager.TooSoonAfterSpawn(__instance, 2f))
                 return;
 
             VoiceManager.PlayRandomVoice(__instance, "Swordsmachine",
@@ -608,7 +620,7 @@ namespace UltraVoice.Characters
             if (VoiceManager.IsEnemyVoicePlaying(__instance))
                 return;
 
-            if (VoiceManager.TooSoonAfterSpawn(__instance, 5f))
+            if (VoiceManager.TooSoonAfterSpawn(__instance, 2f))
                 return;
 
             var src = VoiceManager.CreateVoiceSource(
@@ -635,7 +647,7 @@ namespace UltraVoice.Characters
             if (VoiceManager.IsEnemyVoicePlaying(__instance))
                 return;
 
-            if (VoiceManager.TooSoonAfterSpawn(__instance, 5f))
+            if (VoiceManager.TooSoonAfterSpawn(__instance, 2f))
                 return;
 
             var src = VoiceManager.CreateVoiceSource(

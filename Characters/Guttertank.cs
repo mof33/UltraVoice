@@ -155,21 +155,21 @@ namespace UltraVoice.Characters
                     __instance
                 ));
 
-            if (__instance.dead || __instance == null) return;
+            if (__instance.dead || __instance.eid.dead || __instance == null) return;
 
             UltraVoicePlugin.Instance.StartCoroutine(DelayedPunchTripVox(__instance));
         }
 
         static IEnumerator DelayedPunchTripVox(Guttertank tank)
         {
-            if (tank.dead || tank == null) yield break;
+            if (tank.dead || tank.eid.dead || tank == null) yield break;
 
             yield return new WaitForSeconds(0.75f);
 
             VoiceManager.PlayRandomVoice(tank, "Guttertank",
                 GuttertankCharacter.FrustratedClips,
                 GuttertankCharacter.FrustratedSubs,
-                true
+                false
             );
         }
     }
