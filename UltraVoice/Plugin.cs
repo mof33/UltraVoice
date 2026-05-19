@@ -5,7 +5,6 @@ using PluginConfig.API.Fields;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Net;
 using System.Reflection;
 using UltraVoice.Characters;
 using UltraVoice.Utilities;
@@ -14,7 +13,7 @@ using UnityEngine.SceneManagement;
 
 namespace UltraVoice
 {
-    [BepInPlugin("com.mel33.ultravoice", "UltraVoice", "1.0.0")]
+    [BepInPlugin("com.mel33.ultravoice", "UltraVoice", "1.0.1")]
     [BepInDependency("com.eternalUnion.pluginConfigurator")]
     public class UltraVoicePlugin : BaseUnityPlugin
     {

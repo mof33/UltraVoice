@@ -112,6 +112,9 @@ namespace UltraVoice.Utilities
             if (enemy.gameObject.name.Contains("Big Johninator"))
                 return null;
 
+            if (enemy.gameObject.GetComponent<EnemyIdentifier>().puppet)
+                return null;
+
             if (!shouldInterrupt)
             {
                 if (!CheckGlobalCooldown())

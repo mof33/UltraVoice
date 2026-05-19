@@ -7,6 +7,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Gutterman\gm_Enrage5.wav" />
 	  <None Remove="Resources\Gutterman\gm_Punch1.wav" />
 	  <None Remove="Resources\Gutterman\gm_Punch2.wav" />
 	  <None Remove="Resources\Gutterman\gm_Punch3.wav" />
@@ -91,6 +92,7 @@
 	  <EmbeddedResource Include="Resources\Gutterman\gm_Enrage2.wav" />
 	  <EmbeddedResource Include="Resources\Gutterman\gm_Enrage3.wav" />
 	  <EmbeddedResource Include="Resources\Gutterman\gm_Enrage4.wav" />
+	  <EmbeddedResource Include="Resources\Gutterman\gm_Enrage5.wav" />
 	  <EmbeddedResource Include="Resources\Gutterman\gm_GuardBreak1.wav" />
 	  <EmbeddedResource Include="Resources\Gutterman\gm_GuardBreak2.wav" />
 	  <EmbeddedResource Include="Resources\Gutterman\gm_GuardBreak3.wav" />

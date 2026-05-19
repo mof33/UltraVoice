@@ -134,7 +134,7 @@ namespace UltraVoice.Characters
             else VoiceManager.PlayRandomVoice(__instance, "Gutterman",
                 GuttermanCharacter.ShieldBreakClips,
                 GuttermanCharacter.ShieldBreakSubs,
-                false,
+                true,
                 randomPitch: true
             );
         }
