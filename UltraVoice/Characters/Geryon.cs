@@ -244,22 +244,6 @@ namespace UltraVoice.Characters
             if (__instance.name != "Geryon_Rig" || __instance.transform.parent.name != "Theatre (1)")
                 return;
 
-            Transform t = __instance.transform;
-            bool found = false;
-
-            while (t != null)
-            {
-                if (t.name.Contains("Theatre (1)"))
-                {
-                    found = true;
-                    break;
-                }
-                t = t.parent;
-            }
-
-            if (!found)
-                return;
-
             UltraVoicePlugin.Instance.StartCoroutine(PlayDeath(__instance));
 
             static IEnumerator PlayDeath(GameObject geryon)

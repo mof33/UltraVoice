@@ -65,8 +65,8 @@ namespace UltraVoice.Characters
 
         public static readonly string[] SpawnSubs =
         {
-            "COME ON, COME ON",
             "LET'S SEE SOME BLOOD",
+            "COME ON, COME ON",
             "WHO'S READY TO FIGHT",
             "I SMELL BLOOD",
             "I'LL CUT YOU ALL DOWN",
@@ -404,51 +404,33 @@ namespace UltraVoice.Characters
                 true
             );
 
-            if (__instance.bossVersion && UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "5bcb2e0461e7fce408badfcb6778c271" && __instance.difficulty < 3 && !SwordsmachineCharacter.FirstFightLinePlayed)
+            if (__instance.bossVersion && UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "5bcb2e0461e7fce408badfcb6778c271" && __instance.difficulty <= 2 && !SwordsmachineCharacter.FirstFightLinePlayed)
                 UltraVoicePlugin.Instance.StartCoroutine(PlayKnockdownSpecial(__instance));
+            else if (__instance.bossVersion && UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "5bcb2e0461e7fce408badfcb6778c271" && __instance.difficulty == 3 && !SwordsmachineCharacter.FirstFightLinePlayed)
+                UltraVoicePlugin.Instance.StartCoroutine(PlayKnockdownSpecialFasterDelay(__instance));
             else if (__instance.bossVersion && UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "5bcb2e0461e7fce408badfcb6778c271" && __instance.difficulty == 4 && !SwordsmachineCharacter.FirstFightLinePlayed)
-                UltraVoicePlugin.Instance.StartCoroutine(PlayKnockdown(__instance));
+                UltraVoicePlugin.Instance.StartCoroutine(PieceOfShit(__instance));
             else
                 UltraVoicePlugin.Instance.StartCoroutine(PlayKnockdown(__instance));
         }
 
         static IEnumerator PlayKnockdown(SwordsMachine sm)
         {
-            yield return new WaitForSeconds(0.85f);
+           yield return new WaitForSeconds(0.75f);
 
-            int i = UnityEngine.Random.Range(0, SwordsmachineCharacter.KnockdownClips.Length);
-
-            var src = VoiceManager.CreateVoiceSource(
+           VoiceManager.PlayRandomVoice(
                 sm,
-                "SwordsmachineKnockdown",
-                SwordsmachineCharacter.UseSwordsmachineClip(SwordsmachineCharacter.KnockdownClips[i], SwordsmachineCharacter.KnockdownClipsNoto[i]),
-                SwordsmachineCharacter.KnockdownSubs[i],
+                "SwordsmachineKnockdownSpecial",
+                SwordsmachineCharacter.UseSwordsmachineClips(SwordsmachineCharacter.KnockdownClips, SwordsmachineCharacter.KnockdownClips),
+                SwordsmachineCharacter.KnockdownSubs,
                 true,
-                SwordsmachineCharacter.GetColorOverride(sm),
-                randomPitch: true
+                true,
+                SwordsmachineCharacter.GetColorOverride(sm)
             );
         }
 
-        static IEnumerator PieceOfShit(SwordsMachine sm)
+        static IEnumerator PlayKnockdownSpecialFasterDelay(SwordsMachine sm)
         {
-            yield return new WaitForSeconds(0.5f);
-
-            int i = UnityEngine.Random.Range(0, SwordsmachineCharacter.KnockdownClips.Length);
-
-            var src = VoiceManager.CreateVoiceSource(
-                sm,
-                "SwordsmachineKnockdown",
-                SwordsmachineCharacter.UseSwordsmachineClip(SwordsmachineCharacter.KnockdownClips[i], SwordsmachineCharacter.KnockdownClipsNoto[i]),
-                SwordsmachineCharacter.KnockdownSubs[i],
-                true,
-                SwordsmachineCharacter.GetColorOverride(sm),
-                randomPitch: true
-            );
-        }
-
-        static IEnumerator PlayKnockdownSpecial(SwordsMachine sm)
-        {
-            SwordsmachineCharacter.FirstFightLinePlayed = true;
             yield return new WaitForSeconds(0.5f);
 
             var src = VoiceManager.CreateVoiceSource(
@@ -459,6 +441,48 @@ namespace UltraVoice.Characters
                 true,
                 SwordsmachineCharacter.GetColorOverride(sm)
             );
+            SwordsmachineCharacter.FirstFightLinePlayed = true;
+
+            yield return new WaitForSeconds(1f);
+
+            if (src == null)
+                yield break;
+
+            VoiceManager.ShowSubtitle(
+                "YOU THINK YOU'RE SO MUCH BETTER THAN ME, HUH?!",
+                src,
+                SwordsmachineCharacter.GetColorOverride(sm)
+            );
+        }
+
+        static IEnumerator PieceOfShit(SwordsMachine sm)
+        {
+            yield return new WaitForSeconds(0.85f);
+
+            var src = VoiceManager.CreateVoiceSource(
+                sm,
+                "SwordsmachineKnockdown",
+                SwordsmachineCharacter.UseSwordsmachineClip(SwordsmachineCharacter.KnockdownClipSpecialBrutal, SwordsmachineCharacter.KnockdownClipSpecialBrutalNoto),
+                "PIECE OF SHIT!",
+                true,
+                SwordsmachineCharacter.GetColorOverride(sm)
+            );
+            SwordsmachineCharacter.FirstFightLinePlayed = true;
+        }
+
+        static IEnumerator PlayKnockdownSpecial(SwordsMachine sm)
+        {
+            yield return new WaitForSeconds(0.75f);
+
+            var src = VoiceManager.CreateVoiceSource(
+                sm,
+                "SwordsmachineKnockdownSpecial",
+                SwordsmachineCharacter.UseSwordsmachineClip(SwordsmachineCharacter.KnockdownClipSpecial, SwordsmachineCharacter.KnockdownClipSpecialNoto),
+                null,
+                true,
+                SwordsmachineCharacter.GetColorOverride(sm)
+            );
+            SwordsmachineCharacter.FirstFightLinePlayed = true;
 
             yield return new WaitForSeconds(1f);
 

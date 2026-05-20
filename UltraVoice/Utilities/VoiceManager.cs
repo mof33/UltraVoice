@@ -112,7 +112,7 @@ namespace UltraVoice.Utilities
             if (enemy.gameObject.name.Contains("Big Johninator"))
                 return null;
 
-            if (enemy.gameObject.GetComponent<EnemyIdentifier>().puppet)
+            if (enemy.gameObject.TryGetComponent<EnemyIdentifier>(out var eid) && eid.puppet)
                 return null;
 
             if (!shouldInterrupt)
@@ -139,7 +139,7 @@ namespace UltraVoice.Utilities
             src.clip = clip;
             src.spatialBlend = spatialBlend;
             src.volume = UltraVoicePlugin.VoiceVolume.value;
-            src.volume *= 1.25f;
+            src.volume *= 2.5f;
             src.volume *= volumeMult;
             src.minDistance = 50f;
             src.maxDistance = 200f;
