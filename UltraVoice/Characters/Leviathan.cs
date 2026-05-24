@@ -1,0 +1,193 @@
+﻿using HarmonyLib;
+using UnityEngine;
+using UltraVoice.Utilities;
+
+namespace UltraVoice.Characters
+{
+    public static class LeviathanCharacter
+    {
+        public static AudioClip[] ChatterClips;
+        public static AudioClip BiteClip;
+        public static AudioClip BiteWindupClip;
+        public static AudioClip ParryClip;
+        public static AudioClip RoarClip;
+        public static AudioClip DeathClip;
+        public static AudioClip DeathEndClip;
+
+        public static readonly string[] ChatterSubs =
+        {
+            "DEVOUR IT",
+            "TEAR IT APART",
+            "SINK IN DESPAIR",
+            "THE STYX WILL CLAIM YOU",
+            "WE ARE HUNGRY",
+        };
+
+        public static void LoadVoiceLines(BepInEx.Logging.ManualLogSource logger)
+        {
+            ChatterClips = new AudioClip[]
+            {
+                UltraVoicePlugin.LoadClip("Leviathan.lev_Chatter1.wav"),
+                UltraVoicePlugin.LoadClip("Leviathan.lev_Chatter2.wav"),
+                UltraVoicePlugin.LoadClip("Leviathan.lev_Chatter3.wav"),
+                UltraVoicePlugin.LoadClip("Leviathan.lev_Chatter4.wav"),
+                UltraVoicePlugin.LoadClip("Leviathan.lev_Chatter5.wav"),
+            };
+
+            BiteClip = UltraVoicePlugin.LoadClip("Leviathan.lev_Bite");
+            BiteWindupClip = UltraVoicePlugin.LoadClip("Leviathan.lev_BiteWindup");
+            ParryClip = UltraVoicePlugin.LoadClip("Leviathan.lev_Parried");
+            DeathClip = UltraVoicePlugin.LoadClip("Leviathan.lev_Death");
+            DeathEndClip = UltraVoicePlugin.LoadClip("Leviathan.lev_DeathEnd");
+
+            logger.LogInfo("Leviathan voice lines loaded successfully!");
+        }
+
+        [HarmonyPatch(typeof(LeviathanHead), nameof(LeviathanHead.Update))]
+        class LeviathanChatterPatch
+        {
+            static void Postfix(LeviathanHead __instance)
+            {
+                if (!UltraVoicePlugin.LeviathanVoiceEnabled.value)
+                    return;
+
+                if (ULTRAKILL.Cheats.BlindEnemies.Blind)
+                    return;
+
+                if (!VoiceManager.CheckCooldown(__instance, 8f))
+                    return;
+
+                if (__instance.inAction || !__instance.active)
+                    return;
+
+                VoiceManager.PlayRandomVoice(__instance, "Leviathan",
+                    ChatterClips,
+                    ChatterSubs,
+                    true,
+                    volumeMult: 3f
+                );
+                __instance.attackCooldown = 4f;
+
+            }
+        }
+
+        [HarmonyPatch(typeof(LeviathanHead), nameof(LeviathanHead.Bite))]
+        class LeviathanBiteWindupPatch
+        {
+            static void Postfix(LeviathanHead __instance)
+            {
+                if (!UltraVoicePlugin.LeviathanVoiceEnabled.value)
+                    return;
+
+                VoiceManager.CreateVoiceSource(__instance, "Leviathan",
+                    BiteWindupClip,
+                    null,
+                    true,
+                    volumeMult: 3f
+                );
+            }
+        }
+
+        [HarmonyPatch(typeof(LeviathanHead), nameof(LeviathanHead.BiteDamageStart))]
+        class LeviathanBitePatch
+        {
+            static void Postfix(LeviathanHead __instance)
+            {
+                if (!UltraVoicePlugin.LeviathanVoiceEnabled.value)
+                    return;
+
+                VoiceManager.CreateVoiceSource(__instance, "Leviathan",
+                    BiteClip,
+                    null,
+                    true,
+                    volumeMult: 3f
+                );
+            }
+        }
+
+        [HarmonyPatch(typeof(LeviathanHead), nameof(LeviathanHead.GotParried))]
+        class LeviathanParryPatch
+        {
+            static void Postfix(LeviathanHead __instance)
+            {
+                if (!UltraVoicePlugin.LeviathanVoiceEnabled.value)
+                    return;
+
+                VoiceManager.CreateVoiceSource(__instance, "Leviathan",
+                    ParryClip,
+                    null,
+                    true,
+                    volumeMult: 3f
+                );
+            }
+        }
+
+        [HarmonyPatch(typeof(LeviathanHead), nameof(LeviathanHead.ProjectileBurst))]
+        class LeviathanBarragePatch
+        {
+            static void Postfix(LeviathanHead __instance)
+            {
+                if (!UltraVoicePlugin.LeviathanVoiceEnabled.value)
+                    return;
+
+                VoiceManager.CreateVoiceSource(__instance, "Leviathan",
+                    RoarClip,
+                    null,
+                    true,
+                    volumeMult: 3f
+                );
+            }
+        }
+
+        [HarmonyPatch(typeof(LeviathanHead), nameof(LeviathanHead.BeamAttack))]
+        class LeviathanBeamPatch
+        {
+            static void Postfix(LeviathanHead __instance)
+            {
+                if (!UltraVoicePlugin.LeviathanVoiceEnabled.value)
+                    return;
+
+                VoiceManager.CreateVoiceSource(__instance, "Leviathan",
+                    RoarClip,
+                    null,
+                    true,
+                    volumeMult: 3f
+                );
+            }
+        }
+
+        [HarmonyPatch(typeof(LeviathanHead), nameof(LeviathanHead.Death))]
+        class LeviathanDeathPatch
+        {
+            static void Postfix(LeviathanHead __instance)
+            {
+                if (!UltraVoicePlugin.LeviathanVoiceEnabled.value)
+                    return;
+
+                VoiceManager.CreateVoiceSource(__instance, "Leviathan",
+                    DeathClip,
+                    null,
+                    true,
+                    volumeMult: 3f
+                );
+            }
+        }
+
+        [HarmonyPatch(typeof(LeviathanHead), nameof(LeviathanHead.HeadExplode))]
+        class LeviathanDeathEndPatch
+        {
+            static void Postfix(LeviathanHead __instance)
+            {
+                if (!UltraVoicePlugin.LeviathanVoiceEnabled.value)
+                    return;
+
+                VoiceManager.CreateVoiceSource(__instance, "Leviathan",
+                    DeathEndClip,
+                    null,
+                    true,
+                    volumeMult: 3f
+                );
+            }
+        }
+    }
+}
