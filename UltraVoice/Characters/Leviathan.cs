@@ -34,11 +34,11 @@ namespace UltraVoice.Characters
                 UltraVoicePlugin.LoadClip("Leviathan.lev_Chatter5.wav"),
             };
 
-            BiteClip = UltraVoicePlugin.LoadClip("Leviathan.lev_Bite");
-            BiteWindupClip = UltraVoicePlugin.LoadClip("Leviathan.lev_BiteWindup");
-            ParryClip = UltraVoicePlugin.LoadClip("Leviathan.lev_Parried");
-            DeathClip = UltraVoicePlugin.LoadClip("Leviathan.lev_Death");
-            DeathEndClip = UltraVoicePlugin.LoadClip("Leviathan.lev_DeathEnd");
+            BiteClip = UltraVoicePlugin.LoadClip("Leviathan.lev_Bite.wav");
+            BiteWindupClip = UltraVoicePlugin.LoadClip("Leviathan.lev_BiteWindup.wav");
+            ParryClip = UltraVoicePlugin.LoadClip("Leviathan.lev_Parried.wav");
+            DeathClip = UltraVoicePlugin.LoadClip("Leviathan.lev_Death.wav");
+            DeathEndClip = UltraVoicePlugin.LoadClip("Leviathan.lev_DeathEnd.wav");
 
             logger.LogInfo("Leviathan voice lines loaded successfully!");
         }
@@ -49,9 +49,6 @@ namespace UltraVoice.Characters
             static void Postfix(LeviathanHead __instance)
             {
                 if (!UltraVoicePlugin.LeviathanVoiceEnabled.value)
-                    return;
-
-                if (ULTRAKILL.Cheats.BlindEnemies.Blind)
                     return;
 
                 if (!VoiceManager.CheckCooldown(__instance, 8f))
