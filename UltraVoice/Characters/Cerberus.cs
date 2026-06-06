@@ -1,7 +1,8 @@
 using HarmonyLib;
 using System.Collections;
-using UnityEngine;
+using System.Runtime.ConstrainedExecution;
 using UltraVoice.Utilities;
+using UnityEngine;
 
 namespace UltraVoice.Characters
 {
@@ -184,7 +185,7 @@ namespace UltraVoice.Characters
 
         static IEnumerator PlayAwaken(StatueFake cerb)
         {
-            yield return new WaitForSeconds(UnityEngine.Random.Range(0.5f, 1f));
+            yield return new WaitForSeconds(UnityEngine.Random.Range(0f, 1f));
 
             int i = UnityEngine.Random.Range(0, CerberusCharacter.AwakenClips.Length);
 
@@ -238,14 +239,7 @@ namespace UltraVoice.Characters
             if (!UltraVoicePlugin.CerberusVoiceEnabled.value)
                 return;
 
-            UltraVoicePlugin.Instance.StartCoroutine(PlayEnrage(__instance));
-        }
-
-        static IEnumerator PlayEnrage(StatueBoss cerb)
-        {
-            yield return new WaitForSeconds(0.1f);
-            VoiceManager.PlayRandomVoice(cerb, "Cerberus", CerberusCharacter.EnrageClips, CerberusCharacter.EnrageSubs, randomPitch: true);
-            VoiceManager.spawnVoiceEndTimes[cerb] = Time.time + 3;
+            VoiceManager.PlayRandomVoice(__instance, "Cerberus", CerberusCharacter.EnrageClips, CerberusCharacter.EnrageSubs, randomPitch: true);
         }
     }
 

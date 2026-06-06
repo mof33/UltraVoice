@@ -103,19 +103,11 @@ namespace UltraVoice.Characters
 
             VoiceManager.enemySpawnTimes[__instance] = Time.time;
 
-            UltraVoicePlugin.Instance.StartCoroutine(PlayCommon(__instance));
-
-            static IEnumerator PlayCommon(Drone virtue)
-            {
-                yield return new WaitForSeconds(UnityEngine.Random.Range(0f, 0.4f));
-
-                VoiceManager.PlayRandomVoice(virtue, "Virtue",
-                    VirtueCharacter.SpawnClips,
-                    VirtueCharacter.SpawnSubs,
-                    false,
-                    randomPitch: true
-                );
-            }
+            VoiceManager.PlayRandomVoice(__instance, "Virtue",
+                VirtueCharacter.SpawnClips,
+                VirtueCharacter.SpawnSubs,
+                randomPitch: true
+            );
         }
     }
 

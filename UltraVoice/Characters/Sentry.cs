@@ -247,7 +247,7 @@ namespace UltraVoice.Characters
         {
             if (!__result || !UltraVoicePlugin.SentryVoiceEnabled.value) return;
 
-            if (data.hitter.Contains("saw")) return;
+            if (!__instance.aiming) return;
 
             VoiceManager.PlayRandomVoice(
                 __instance, "Sentry",

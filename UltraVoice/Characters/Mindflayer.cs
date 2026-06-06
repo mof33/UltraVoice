@@ -142,23 +142,16 @@ namespace UltraVoice.Characters
 
             VoiceManager.enemySpawnTimes[__instance] = Time.time;
 
-            UltraVoicePlugin.Instance.StartCoroutine(PlayCommon(__instance));
+            var clips = MindflayerCharacter.IsMascMindflayer(__instance)
+                ? MindflayerCharacter.SpawnClipsMasc
+                : MindflayerCharacter.SpawnClips;
 
-            static IEnumerator PlayCommon(Mindflayer mf)
-            {
-                var clips = MindflayerCharacter.IsMascMindflayer(mf)
-                    ? MindflayerCharacter.SpawnClipsMasc
-                    : MindflayerCharacter.SpawnClips;
-
-                yield return new WaitForSeconds(UnityEngine.Random.Range(0f, 0.4f));
-
-                VoiceManager.PlayRandomVoice(mf, "Mindflayer",
-                    clips,
-                    MindflayerCharacter.SpawnSubs,
-                    false,
-                    randomPitch: true
-                );
-            }
+            VoiceManager.PlayRandomVoice(__instance, "Mindflayer",
+                clips,
+                MindflayerCharacter.SpawnSubs,
+                false,
+                randomPitch: true
+            );
         }
     }
 

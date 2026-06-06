@@ -93,19 +93,11 @@ namespace UltraVoice.Characters
 
             VoiceManager.enemySpawnTimes[__instance] = Time.time;
 
-            UltraVoicePlugin.Instance.StartCoroutine(PlayCommon(__instance));
-
-            static IEnumerator PlayCommon(Drone prov)
-            {
-                yield return new WaitForSeconds(UnityEngine.Random.Range(0f, 0.4f));
-
-                VoiceManager.PlayRandomVoice(prov, "Providence",
-                    ProvidenceCharacter.SpawnClips,
-                    ProvidenceCharacter.SpawnSubs,
-                    false,
-                    randomPitch: true
-                );
-            }
+            VoiceManager.PlayRandomVoice(__instance, "Providence",
+                ProvidenceCharacter.SpawnClips,
+                ProvidenceCharacter.SpawnSubs,
+                randomPitch: true
+            );
         }
     }
 

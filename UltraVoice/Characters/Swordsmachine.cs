@@ -262,18 +262,11 @@ namespace UltraVoice.Characters
             if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "7927c42db92e4164cae682a55e6b7725") // Prelude Second Scene
                 return;
 
-            UltraVoicePlugin.Instance.StartCoroutine(PlayCommon(__instance));
-
-            static IEnumerator PlayCommon(SwordsMachine sm)
-            {
-                yield return new WaitForSeconds(UnityEngine.Random.Range(0f, 0.4f));
-
-                VoiceManager.PlayRandomVoice(sm, "Virtue",
-                SwordsmachineCharacter.UseSwordsmachineClips(SwordsmachineCharacter.SpawnClips, SwordsmachineCharacter.SpawnClipsNoto, randomPitch: true),
-                SwordsmachineCharacter.SpawnSubs,
-                true
-                );
-            }
+            VoiceManager.PlayRandomVoice(__instance, "Virtue",
+            SwordsmachineCharacter.UseSwordsmachineClips(SwordsmachineCharacter.SpawnClips, SwordsmachineCharacter.SpawnClipsNoto, randomPitch: true),
+            SwordsmachineCharacter.SpawnSubs,
+            true
+            );
         }
 
         static IEnumerator PlayBossIntro(SwordsMachine sm)
