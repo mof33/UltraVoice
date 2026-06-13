@@ -51,7 +51,7 @@ namespace UltraVoice.Characters
 
             VoiceManager.CreateVoiceSource(
                 __instance, "Filth",
-                FilthCharacter.AttackClip,
+                FilthCharacter.DeathClip,
                 null,
                 randomPitch: true
             );
@@ -68,7 +68,7 @@ namespace UltraVoice.Characters
 
             VoiceManager.CreateVoiceSource(
                 __instance, "Filth",
-                FilthCharacter.DeathClip,
+                FilthCharacter.AttackClip,
                 null,
                 randomPitch: true
             );
