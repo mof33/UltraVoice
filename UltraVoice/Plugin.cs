@@ -213,22 +213,22 @@ namespace UltraVoice
 
             StrayVoiceEnabled = new BoolField(
                 TogglesPanel,
-                "Enable Filth Voice Lines",
-                "filthvoice",
+                "Enable Stray Voice Lines",
+                "strayvoice",
                 true
             );
 
             SchismVoiceEnabled = new BoolField(
                 TogglesPanel,
-                "Enable Filth Voice Lines",
-                "filthvoice",
+                "Enable Schism Voice Lines",
+                "schismvoice",
                 true
             );
 
             SoldierVoiceEnabled = new BoolField(
                 TogglesPanel,
-                "Enable Filth Voice Lines",
-                "filthvoice",
+                "Enable Soldier Voice Lines",
+                "soldiervoice",
                 true
             );
 
