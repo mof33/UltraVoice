@@ -28,7 +28,6 @@ namespace UltraVoice.Utilities
                 EnemyType.Turret => new UnityEngine.Color(0.51f, 0.68f, 0.1f),
                 EnemyType.MaliciousFace => new UnityEngine.Color(0.76f, 0.66f, 0.56f),
                 EnemyType.MirrorReaper => new UnityEngine.Color(0.9f, 0.85f, 0.76f),
-                EnemyType.Sisyphus => new UnityEngine.Color(0.67f, 0.49f, 0.38f),
                 _ => UnityEngine.Color.white
             };
         }

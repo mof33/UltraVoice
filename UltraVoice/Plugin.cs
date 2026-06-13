@@ -13,7 +13,7 @@ using UnityEngine.SceneManagement;
 
 namespace UltraVoice
 {
-    [BepInPlugin("com.mel33.ultravoice", "UltraVoice", "1.0.2")]
+    [BepInPlugin("com.mel33.ultravoice", "UltraVoice", "1.1.0")]
     [BepInDependency("com.eternalUnion.pluginConfigurator")]
     public class UltraVoicePlugin : BaseUnityPlugin
     {
@@ -336,7 +336,6 @@ namespace UltraVoice
             MirrorReaperCharacter.LoadVoiceLines(Logger);
             GeryonCharacter.LoadVoiceLines(Logger);
             LeviathanCharacter.LoadVoiceLines(Logger);
-            InsurrectionistCharacter.LoadVoiceLines(Logger);
             FilthCharacter.LoadVoiceLines(Logger);
             StrayCharacter.LoadVoiceLines(Logger);
             SchismCharacter.LoadVoiceLines(Logger);

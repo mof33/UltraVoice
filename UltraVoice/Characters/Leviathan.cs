@@ -54,10 +54,10 @@ namespace UltraVoice.Characters
                 if (!UltraVoicePlugin.LeviathanVoiceEnabled.value)
                     return;
 
-                if (!VoiceManager.CheckCooldown(__instance, 3.5f))
+                if (!VoiceManager.CheckCooldown(__instance, 7f))
                     return;
 
-                if (__instance.inAction || !__instance.active)
+                if (!__instance.active)
                     return;
 
                 VoiceManager.PlayRandomVoice(__instance, "Leviathan",
