@@ -15,7 +15,7 @@ namespace UltraVoice.Utilities
         {
             return enemyType switch
             {
-                EnemyType.Swordsmachine => new UnityEngine.Color(0.91f, 0.6f, 0.05f),   
+                EnemyType.Swordsmachine => new UnityEngine.Color(0.91f, 0.6f, 0.05f),
                 EnemyType.Streetcleaner => new UnityEngine.Color(0.82f, 0.30f, 0.09f),
                 EnemyType.Cerberus => new UnityEngine.Color(0.65f, 0.65f, 0.65f),
                 EnemyType.Mindflayer => new UnityEngine.Color(0.26f, 0.89f, 0.74f),
@@ -28,6 +28,7 @@ namespace UltraVoice.Utilities
                 EnemyType.Turret => new UnityEngine.Color(0.51f, 0.68f, 0.1f),
                 EnemyType.MaliciousFace => new UnityEngine.Color(0.76f, 0.66f, 0.56f),
                 EnemyType.MirrorReaper => new UnityEngine.Color(0.9f, 0.85f, 0.76f),
+                EnemyType.Sisyphus => new UnityEngine.Color(0.67f, 0.49f, 0.38f),
                 _ => UnityEngine.Color.white
             };
         }
@@ -138,8 +139,7 @@ namespace UltraVoice.Utilities
 
             src.clip = clip;
             src.spatialBlend = spatialBlend;
-            src.volume = UltraVoicePlugin.VoiceVolume.value;
-            src.volume *= 2.5f;
+            src.volume = 1f;
             src.volume *= volumeMult;
             src.minDistance = 50f;
             src.maxDistance = 200f;

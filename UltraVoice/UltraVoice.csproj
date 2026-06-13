@@ -7,6 +7,50 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Filth\fil_Attack.wav" />
+	  <None Remove="Resources\Filth\fil_Chatter1.wav" />
+	  <None Remove="Resources\Filth\fil_Chatter2.wav" />
+	  <None Remove="Resources\Filth\fil_Chatter3.wav" />
+	  <None Remove="Resources\Filth\fil_Death.wav" />
+	  <None Remove="Resources\Geryon\ger_Chatter6.wav" />
+	  <None Remove="Resources\Geryon\ger_Chatter7.wav" />
+	  <None Remove="Resources\Geryon\ger_Chatter8.wav" />
+	  <None Remove="Resources\Geryon\ger_Chatter9.wav" />
+	  <None Remove="Resources\Insurrectionist\insur_Attack1.wav" />
+	  <None Remove="Resources\Insurrectionist\insur_Attack2.wav" />
+	  <None Remove="Resources\Insurrectionist\insur_Attack3.wav" />
+	  <None Remove="Resources\Insurrectionist\insur_Attack4.wav" />
+	  <None Remove="Resources\Insurrectionist\insur_AttackSpecial1.wav" />
+	  <None Remove="Resources\Insurrectionist\insur_AttackSpecial2.wav" />
+	  <None Remove="Resources\Insurrectionist\insur_AttackSpecial3.wav" />
+	  <None Remove="Resources\Insurrectionist\insur_Death1.wav" />
+	  <None Remove="Resources\Insurrectionist\insur_Death2.wav" />
+	  <None Remove="Resources\Insurrectionist\insur_DownedAngry.wav" />
+	  <None Remove="Resources\Insurrectionist\insur_DownedRude.wav" />
+	  <None Remove="Resources\Insurrectionist\insur_Frustration1.wav" />
+	  <None Remove="Resources\Insurrectionist\insur_Frustration2.wav" />
+	  <None Remove="Resources\Insurrectionist\insur_Frustration3.wav" />
+	  <None Remove="Resources\Insurrectionist\insur_Spawn1.wav" />
+	  <None Remove="Resources\Insurrectionist\insur_Spawn2.wav" />
+	  <None Remove="Resources\Insurrectionist\insur_Spawn3.wav" />
+	  <None Remove="Resources\Insurrectionist\insur_Spawn4.wav" />
+	  <None Remove="Resources\Insurrectionist\insur_SpawnSpecialAngry.wav" />
+	  <None Remove="Resources\Insurrectionist\insur_SpawnSpecialRude.wav" />
+	  <None Remove="Resources\Insurrectionist\insur_Stun1.wav" />
+	  <None Remove="Resources\Insurrectionist\insur_Stun2.wav" />
+	  <None Remove="Resources\Schism\sch_Attack.wav" />
+	  <None Remove="Resources\Schism\sch_Chatter1.wav" />
+	  <None Remove="Resources\Schism\sch_Chatter2.wav" />
+	  <None Remove="Resources\Schism\sch_Chatter3.wav" />
+	  <None Remove="Resources\Schism\sch_Death.wav" />
+	  <None Remove="Resources\Stray\str_Attack.wav" />
+	  <None Remove="Resources\Stray\str_Chatter1.wav" />
+	  <None Remove="Resources\Stray\str_Chatter2.wav" />
+	  <None Remove="Resources\Stray\str_Chatter3.wav" />
+	  <None Remove="Resources\Stray\str_Death.wav" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <EmbeddedResource Include="Resources\Cerberus\cerb_Death1.wav" />
 	  <EmbeddedResource Include="Resources\Cerberus\cerb_Death2.wav" />
 	  <EmbeddedResource Include="Resources\Cerberus\cerb_Death3.wav" />
@@ -54,12 +98,21 @@
 	  <EmbeddedResource Include="Resources\Ferryman\ferry_Spawn5.wav" />
 	  <EmbeddedResource Include="Resources\Ferryman\ferry_SpawnSpecialAgonis.wav" />
 	  <EmbeddedResource Include="Resources\Ferryman\ferry_SpawnSpecialRudraksha.wav" />
+	  <EmbeddedResource Include="Resources\Filth\fil_Attack.wav" />
+	  <EmbeddedResource Include="Resources\Filth\fil_Chatter1.wav" />
+	  <EmbeddedResource Include="Resources\Filth\fil_Chatter2.wav" />
+	  <EmbeddedResource Include="Resources\Filth\fil_Chatter3.wav" />
+	  <EmbeddedResource Include="Resources\Filth\fil_Death.wav" />
 	  <EmbeddedResource Include="Resources\Geryon\ger_BigPain.wav" />
 	  <EmbeddedResource Include="Resources\Geryon\ger_Chatter1.wav" />
 	  <EmbeddedResource Include="Resources\Geryon\ger_Chatter2.wav" />
 	  <EmbeddedResource Include="Resources\Geryon\ger_Chatter3.wav" />
 	  <EmbeddedResource Include="Resources\Geryon\ger_Chatter4.wav" />
 	  <EmbeddedResource Include="Resources\Geryon\ger_Chatter5.wav" />
+	  <EmbeddedResource Include="Resources\Geryon\ger_Chatter6.wav" />
+	  <EmbeddedResource Include="Resources\Geryon\ger_Chatter7.wav" />
+	  <EmbeddedResource Include="Resources\Geryon\ger_Chatter8.wav" />
+	  <EmbeddedResource Include="Resources\Geryon\ger_Chatter9.wav" />
 	  <EmbeddedResource Include="Resources\Geryon\ger_Death.wav" />
 	  <EmbeddedResource Include="Resources\Geryon\ger_Enrage.wav" />
 	  <EmbeddedResource Include="Resources\Geryon\ger_Intro.wav" />
@@ -117,6 +170,28 @@
 	  <EmbeddedResource Include="Resources\Guttertank\gt_TripPain1.wav" />
 	  <EmbeddedResource Include="Resources\Guttertank\gt_TripPain2.wav" />
 	  <EmbeddedResource Include="Resources\Guttertank\gt_TripPain3.wav" />
+	  <EmbeddedResource Include="Resources\Insurrectionist\insur_Attack1.wav" />
+	  <EmbeddedResource Include="Resources\Insurrectionist\insur_Attack2.wav" />
+	  <EmbeddedResource Include="Resources\Insurrectionist\insur_Attack3.wav" />
+	  <EmbeddedResource Include="Resources\Insurrectionist\insur_Attack4.wav" />
+	  <EmbeddedResource Include="Resources\Insurrectionist\insur_AttackSpecial1.wav" />
+	  <EmbeddedResource Include="Resources\Insurrectionist\insur_AttackSpecial2.wav" />
+	  <EmbeddedResource Include="Resources\Insurrectionist\insur_AttackSpecial3.wav" />
+	  <EmbeddedResource Include="Resources\Insurrectionist\insur_Death1.wav" />
+	  <EmbeddedResource Include="Resources\Insurrectionist\insur_Death2.wav" />
+	  <EmbeddedResource Include="Resources\Insurrectionist\insur_DownedAngry.wav" />
+	  <EmbeddedResource Include="Resources\Insurrectionist\insur_DownedRude.wav" />
+	  <EmbeddedResource Include="Resources\Insurrectionist\insur_Frustration1.wav" />
+	  <EmbeddedResource Include="Resources\Insurrectionist\insur_Frustration2.wav" />
+	  <EmbeddedResource Include="Resources\Insurrectionist\insur_Frustration3.wav" />
+	  <EmbeddedResource Include="Resources\Insurrectionist\insur_Spawn1.wav" />
+	  <EmbeddedResource Include="Resources\Insurrectionist\insur_Spawn2.wav" />
+	  <EmbeddedResource Include="Resources\Insurrectionist\insur_Spawn3.wav" />
+	  <EmbeddedResource Include="Resources\Insurrectionist\insur_Spawn4.wav" />
+	  <EmbeddedResource Include="Resources\Insurrectionist\insur_SpawnSpecialAngry.wav" />
+	  <EmbeddedResource Include="Resources\Insurrectionist\insur_SpawnSpecialRude.wav" />
+	  <EmbeddedResource Include="Resources\Insurrectionist\insur_Stun1.wav" />
+	  <EmbeddedResource Include="Resources\Insurrectionist\insur_Stun2.wav" />
 	  <EmbeddedResource Include="Resources\Leviathan\lev_Bite.wav" />
 	  <EmbeddedResource Include="Resources\Leviathan\lev_BiteWindup.wav" />
 	  <EmbeddedResource Include="Resources\Leviathan\lev_Chatter1.wav" />
@@ -207,6 +282,11 @@
 	  <EmbeddedResource Include="Resources\Providence\prov_Spawn3.wav" />
 	  <EmbeddedResource Include="Resources\Providence\prov_Spawn4.wav" />
 	  <EmbeddedResource Include="Resources\Providence\prov_Spawn5.wav" />
+	  <EmbeddedResource Include="Resources\Schism\sch_Attack.wav" />
+	  <EmbeddedResource Include="Resources\Schism\sch_Chatter1.wav" />
+	  <EmbeddedResource Include="Resources\Schism\sch_Chatter2.wav" />
+	  <EmbeddedResource Include="Resources\Schism\sch_Chatter3.wav" />
+	  <EmbeddedResource Include="Resources\Schism\sch_Death.wav" />
 	  <EmbeddedResource Include="Resources\Sentry\tur_Death1.wav" />
 	  <EmbeddedResource Include="Resources\Sentry\tur_Death1Goob.wav" />
 	  <EmbeddedResource Include="Resources\Sentry\tur_Death2.wav" />
@@ -254,6 +334,11 @@
 	  <EmbeddedResource Include="Resources\Sentry\tur_ShotHit3.wav" />
 	  <EmbeddedResource Include="Resources\Sentry\tur_ShotMissed1.wav" />
 	  <EmbeddedResource Include="Resources\Sentry\tur_ShotMissed2.wav" />
+	  <EmbeddedResource Include="Resources\Stray\str_Attack.wav" />
+	  <EmbeddedResource Include="Resources\Stray\str_Chatter1.wav" />
+	  <EmbeddedResource Include="Resources\Stray\str_Chatter2.wav" />
+	  <EmbeddedResource Include="Resources\Stray\str_Chatter3.wav" />
+	  <EmbeddedResource Include="Resources\Stray\str_Death.wav" />
 	  <EmbeddedResource Include="Resources\Streetcleaner\sc_Attack1.wav" />
 	  <EmbeddedResource Include="Resources\Streetcleaner\sc_Attack2.wav" />
 	  <EmbeddedResource Include="Resources\Streetcleaner\sc_Attack3.wav" />
@@ -417,6 +502,9 @@
 		</Reference>
 		<Reference Include="UnityEngine.UI">
 		  <HintPath>C:\Program Files (x86)\Steam\steamapps\common\ULTRAKILL\ULTRAKILL_Data\Managed\UnityEngine.UI.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.UIModule">
+		  <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\ULTRAKILL\ULTRAKILL_Data\Managed\UnityEngine.UIModule.dll</HintPath>
 		</Reference>
 	</ItemGroup>
 

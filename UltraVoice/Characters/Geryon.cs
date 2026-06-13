@@ -1,8 +1,5 @@
 ﻿using HarmonyLib;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using UltraVoice.Utilities;
 using UnityEngine;
 
@@ -22,11 +19,15 @@ namespace UltraVoice.Characters
 
         public static readonly string[] ChatterSubs =
         {
-            "FOCUS, FOCUS!",
-            "STEADY, STEADY!",
-            "DO NOT FAIL! DO NOT FALTER!",
-            "WHY DOES IT PERSIST!?",
             "IT MUST NOT PREVAIL!",
+            "IT CANNOT ESCAPE US!",
+            "NO ONE WILL SAVE YOU!",
+            "RIP IT TO PIECES!",
+            "CRUSH IT TO DUST!",
+            "MORE BLOOD FOR US!",
+            "WHY DO YOU PERSIST?",
+            "ACCEPT YOUR END.",
+            "SUCH POINTLESS RESISTANCE."
         };
 
         public static readonly string[] OverheatSubs =
@@ -52,6 +53,10 @@ namespace UltraVoice.Characters
                 UltraVoicePlugin.LoadClip("Geryon.ger_Chatter3.wav"),
                 UltraVoicePlugin.LoadClip("Geryon.ger_Chatter4.wav"),
                 UltraVoicePlugin.LoadClip("Geryon.ger_Chatter5.wav"),
+                UltraVoicePlugin.LoadClip("Geryon.ger_Chatter6.wav"),
+                UltraVoicePlugin.LoadClip("Geryon.ger_Chatter7.wav"),
+                UltraVoicePlugin.LoadClip("Geryon.ger_Chatter8.wav"),
+                UltraVoicePlugin.LoadClip("Geryon.ger_Chatter9.wav"),
             };
 
             OverheatClips = new[]

@@ -30,7 +30,7 @@ namespace UltraVoice.Characters
             logger.LogInfo("Mannequin voice lines loaded successfully!");
         }
 
-}
+    }
 
     // MANNEQUIN PATCHES
 

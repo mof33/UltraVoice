@@ -240,18 +240,25 @@ namespace UltraVoice.Characters
         }
     }
 
-    [HarmonyPatch(typeof(Turret), "ShouldKnockback")]
+    [HarmonyPatch(typeof(Turret), nameof(Turret.ShouldKnockback))]
     class SentryShouldKnockbackPatch
     {
-        static void Postfix(Turret __instance, ref DamageData data, ref bool __result)
+        static void Postfix(Turret __instance)
         {
-            if (!__result || !UltraVoicePlugin.SentryVoiceEnabled.value) return;
+            if (!UltraVoicePlugin.SentryVoiceEnabled.value) return;
 
-            if (!__instance.aiming) return;
+            if (__instance.aiming) return;
+
+            if (!VoiceManager.CheckCooldown(__instance, 2f))
+                return;
 
             VoiceManager.PlayRandomVoice(
-                __instance, "Sentry",
-                SentryCharacter.UseSentryClips(SentryCharacter.InterruptPainClips, SentryCharacter.InterruptPainClipsGoob),
+                __instance,
+                "Sentry",
+                SentryCharacter.UseSentryClips(
+                    SentryCharacter.InterruptPainClips,
+                    SentryCharacter.InterruptPainClipsGoob
+                ),
                 null,
                 true,
                 randomPitch: true

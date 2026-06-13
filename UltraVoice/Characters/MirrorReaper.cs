@@ -37,8 +37,6 @@ namespace UltraVoice.Characters
             "SEEK THEM OUT"
         };
 
-        public static bool Spawned = false;
-
         public static void LoadVoiceLines(BepInEx.Logging.ManualLogSource logger)
         {
             SpawnClips = new AudioClip[]
@@ -96,8 +94,6 @@ namespace UltraVoice.Characters
                 MirrorReaperCharacter.SpawnSubs,
                 randomPitch: true
             );
-
-            MirrorReaperCharacter.Spawned = true;
         }
     }
 
@@ -108,8 +104,6 @@ namespace UltraVoice.Characters
         {
             if (!UltraVoicePlugin.MirrorReaperVoiceEnabled.value) 
                 return;
-
-            MirrorReaperCharacter.Spawned = true;
 
             if (SceneHelper.CurrentScene == "Level 8-2")
                 return;
@@ -143,13 +137,13 @@ namespace UltraVoice.Characters
             if (__instance == null || __instance.eid.dead)
                 return;
 
-            if (MirrorReaperCharacter.Spawned && __instance.inMirrorPhase)
+            if (__instance.inMirrorPhase)
                 VoiceManager.PlayRandomVoice(__instance, "MirrorReaper",
                     MirrorReaperCharacter.MirrorTauntClips,
                     MirrorReaperCharacter.MirrorTauntSubs,
                     randomPitch: true
                 );
-            else if (MirrorReaperCharacter.Spawned)
+            else
                     VoiceManager.PlayRandomVoice(__instance, "MirrorReaper",
                     MirrorReaperCharacter.LaughClips,
                     null,
@@ -189,9 +183,6 @@ namespace UltraVoice.Characters
             if (Random.Range(0f, 1f) < 0.5f)
                 return;
 
-            if (__instance == null || __instance.eid.dead)
-                return;
-
             VoiceManager.PlayRandomVoice(__instance, "MirrorReaper",
                 MirrorReaperCharacter.LaughClips,
                 null,
@@ -210,9 +201,6 @@ namespace UltraVoice.Characters
             if (Random.Range(0f, 1f) < 0.5f)
                 return;
 
-            if (__instance == null || __instance.eid.dead)
-                return;
-
             VoiceManager.PlayRandomVoice(__instance, "MirrorReaper",
                 MirrorReaperCharacter.LaughClips,
                 null,
@@ -221,25 +209,20 @@ namespace UltraVoice.Characters
         }
     }
 
-    [HarmonyPatch(typeof(MirrorReaper), "GroundWave")]
+    [HarmonyPatch(typeof(MirrorReaper), nameof(MirrorReaper.GroundWave))]
     class MirrorReaperHandPatch
     {
         static void Postfix(MirrorReaper __instance)
         {
             if (!UltraVoicePlugin.MirrorReaperVoiceEnabled.value) return;
 
-            if (__instance == null || __instance.eid.dead)
+            if (!VoiceManager.CheckCooldown(__instance, 4f))
                 return;
 
-            if (Random.Range(0f, 1f) < 0.85f)
-                return;
-
-            if (MirrorReaperCharacter.Spawned)
-                VoiceManager.PlayRandomVoice(__instance, "MirrorReaper",
+            VoiceManager.PlayRandomVoice(__instance, "MirrorReaper",
                 MirrorReaperCharacter.PuppetHandClips,
                 MirrorReaperCharacter.PuppetHandSubs,
-                randomPitch: true
-            );
+                randomPitch: true);
         }
     }
 

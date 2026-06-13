@@ -365,11 +365,10 @@ namespace UltraVoice.Characters
                 SwordsmachineCharacter.UseSwordsmachineClip(SwordsmachineCharacter.EnrageClips[i], SwordsmachineCharacter.EnrageClipsNoto[i]),
                 SwordsmachineCharacter.EnrageSubs[i],
                 true,
-                SwordsmachineCharacter.GetColorOverride(sm),
                 randomPitch: true
             );
 
-            if (src == null)
+            if (src == null || !src.isPlaying || !sm.active)
                 yield break;
 
             if (!string.IsNullOrEmpty(SwordsmachineCharacter.EnrageSubs2[i]))
@@ -379,7 +378,7 @@ namespace UltraVoice.Characters
                 VoiceManager.ShowSubtitle(
                     SwordsmachineCharacter.EnrageSubs2[i],
                     src,
-                    SwordsmachineCharacter.GetColorOverride(sm)
+                    color: VoiceManager.GetEnemyTypeColor(EnemyType.Swordsmachine)
                 );
             }
         }
@@ -421,7 +420,7 @@ namespace UltraVoice.Characters
            VoiceManager.PlayRandomVoice(
                 sm,
                 "SwordsmachineKnockdownSpecial",
-                SwordsmachineCharacter.UseSwordsmachineClips(SwordsmachineCharacter.KnockdownClips, SwordsmachineCharacter.KnockdownClips),
+                SwordsmachineCharacter.UseSwordsmachineClips(SwordsmachineCharacter.KnockdownClips, SwordsmachineCharacter.KnockdownClipsNoto),
                 SwordsmachineCharacter.KnockdownSubs,
                 true,
                 true,

@@ -40,14 +40,18 @@ namespace UltraVoice
         public static BoolField MirrorReaperVoiceEnabled;
         public static BoolField GeryonVoiceEnabled;
         public static BoolField LeviathanVoiceEnabled;
+        public static BoolField InsurrectionistVoiceEnabled;
+        public static BoolField FilthVoiceEnabled;
+        public static BoolField StrayVoiceEnabled;
+        public static BoolField SchismVoiceEnabled;
+        public static BoolField SoldierVoiceEnabled;
         public static BoolField PowerSubtitleColorEnabled;
         public static FloatField VoiceCooldown;
-        public static FloatField VoiceVolume;
+        public static IntField SubtitleLimit;
+
         public static EnumField<SwordsmachineVoiceActor> SwordsmachineVoiceActorField;
         public static EnumField<SentryVoiceActor> SentryVoiceActorField;
         public static ConfigPanel TogglesPanel;
-        public static ConfigPanel SubtitleColorPanel;
-        public static ConfigPanel SlidersPanel;
         public static ConfigPanel ActorPanel;
 
         public enum SwordsmachineVoiceActor
@@ -62,9 +66,6 @@ namespace UltraVoice
             Goober
         }
 
-        private static Dictionary<ICharacter, Dictionary<string, AudioClip[]>> characterVoiceLines =
-            new Dictionary<ICharacter, Dictionary<string, AudioClip[]>>();
-
         void Awake()
         {
             Instance = this;
@@ -72,12 +73,8 @@ namespace UltraVoice
 
             config = PluginConfigurator.Create("UltraVoice", "com.mel33.ultravoice");
 
-            config.SetIconWithURL("https://filebin.net/xcwluh1i8mu3o41d/icon.png");
-
             // Create panels
             TogglesPanel = new ConfigPanel(config.rootPanel, "Enemy Line Toggles", "toggles");
-            SubtitleColorPanel = new ConfigPanel(config.rootPanel, "Subtitle Color Toggles", "subtitlecolor");
-            SlidersPanel = new ConfigPanel(config.rootPanel, "Audio Settings", "sliders");
             ActorPanel = new ConfigPanel(config.rootPanel, "Voice Actors", "actors");
 
             // Enemy toggles
@@ -200,15 +197,50 @@ namespace UltraVoice
                 true
             );
 
+            InsurrectionistVoiceEnabled = new BoolField(
+                TogglesPanel,
+                "Enable Insurrctionist Voice Lines",
+                "insurvoice",
+                true
+            );
+
+            FilthVoiceEnabled = new BoolField(
+                TogglesPanel,
+                "Enable Filth Voice Lines",
+                "filthvoice",
+                true
+            );
+
+            StrayVoiceEnabled = new BoolField(
+                TogglesPanel,
+                "Enable Filth Voice Lines",
+                "filthvoice",
+                true
+            );
+
+            SchismVoiceEnabled = new BoolField(
+                TogglesPanel,
+                "Enable Filth Voice Lines",
+                "filthvoice",
+                true
+            );
+
+            SoldierVoiceEnabled = new BoolField(
+                TogglesPanel,
+                "Enable Filth Voice Lines",
+                "filthvoice",
+                true
+            );
+
             PowerSubtitleColorEnabled = new BoolField(
-                SubtitleColorPanel,
+                config.rootPanel,
                 "Enable Power Subtitle Color",
-                "powersubtitlecolor",
+                "powersubcolor",
                 true
             );
 
             VoiceCooldown = new FloatField(
-                SlidersPanel,
+                config.rootPanel,
                 "Voice Cooldown",
                 "cooldown",
                 0.25f,
@@ -216,13 +248,13 @@ namespace UltraVoice
                 0.5f
             );
 
-            VoiceVolume = new FloatField(
-                SlidersPanel,
-                "Voice Volume",
-                "volume",
-                1f,
-                0f,
-                1f
+            SubtitleLimit = new IntField(
+                config.rootPanel, 
+                "Max Allowed Subtitles",
+                "subtitlelimit",
+                5,
+                1,
+                10
             );
 
             UltraVoicePlugin.SwordsmachineVoiceActorField = new EnumField<SwordsmachineVoiceActor>(
@@ -244,6 +276,7 @@ namespace UltraVoice
 
             UltraVoicePlugin.SentryVoiceActorField.SetEnumDisplayName(SentryVoiceActor.Goober, "Goober");
             UltraVoicePlugin.SentryVoiceActorField.SetEnumDisplayName(SentryVoiceActor.Noto, "Noto");
+
             LoadAssets();
 
             harmony = new Harmony("com.mel33.ultravoice");
@@ -279,8 +312,6 @@ namespace UltraVoice
 
             GuttertankCharacter.GuttertankSpawnInMirror = false;
 
-            MirrorReaperCharacter.Spawned = false;
-
             GeryonCharacter.EnrageLinePlayed = false;
             GeryonCharacter.CanRestartFight = false;
         }
@@ -305,6 +336,7 @@ namespace UltraVoice
             MirrorReaperCharacter.LoadVoiceLines(Logger);
             GeryonCharacter.LoadVoiceLines(Logger);
             LeviathanCharacter.LoadVoiceLines(Logger);
+            InsurrectionistCharacter.LoadVoiceLines(Logger);
         }
 
         public static AudioClip LoadClip(string resourcePath)
@@ -360,4 +392,10 @@ namespace UltraVoice
             }
         }
     }
+}
+
+[HarmonyPatch(typeof(GabrielVoice), "Hurt")]
+class GabrielHurtPatch
+{
+    static bool Prefix() => false;
 }

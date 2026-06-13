@@ -178,6 +178,9 @@ namespace UltraVoice.Characters
             if (!UltraVoicePlugin.CerberusVoiceEnabled.value)
                 return;
 
+            if (!VoiceManager.CheckCooldown(__instance, 3f))
+                return;
+
             VoiceManager.enemySpawnTimes[__instance] = Time.time;
 
             UltraVoicePlugin.Instance.StartCoroutine(PlayAwaken(__instance));
@@ -239,7 +242,13 @@ namespace UltraVoice.Characters
             if (!UltraVoicePlugin.CerberusVoiceEnabled.value)
                 return;
 
-            VoiceManager.PlayRandomVoice(__instance, "Cerberus", CerberusCharacter.EnrageClips, CerberusCharacter.EnrageSubs, randomPitch: true);
+            UltraVoicePlugin.Instance.StartCoroutine(PlayEnrage(__instance));
+
+            static IEnumerator PlayEnrage(StatueBoss cerb)
+            {
+                yield return new WaitForSeconds(UnityEngine.Random.Range(0f, 0.4f));
+                VoiceManager.PlayRandomVoice(cerb, "Cerberus", CerberusCharacter.EnrageClips, CerberusCharacter.EnrageSubs, randomPitch: true);
+            }
         }
     }
 

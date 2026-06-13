@@ -118,7 +118,7 @@ namespace UltraVoice.Characters
             logger.LogInfo("Guttertank voice lines loaded successfully!");
         }
 
-}
+    }
 
     // GUTTERTANK PATCHES
 
