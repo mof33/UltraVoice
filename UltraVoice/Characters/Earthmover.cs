@@ -104,6 +104,9 @@ namespace UltraVoice.Characters
             if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "6e981b1865c649749a610aafc471e198")
                 return;
 
+            if (__instance.to == null || __instance.to.clip == null)
+                return;
+
             if (__instance.to.clip.name == "Centaur A-2")
             {
                 UltraVoicePlugin.Instance.StartCoroutine(BloodVent());
