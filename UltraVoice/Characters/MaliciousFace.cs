@@ -73,7 +73,7 @@ namespace UltraVoice.Characters
             if (ULTRAKILL.Cheats.BlindEnemies.Blind)
                 return;
 
-            if (!VoiceManager.CheckCooldown(__instance, 4f))
+            if (!VoiceManager.CheckCooldown(__instance, 6f))
                 return;
 
             if (__instance == null || __instance.eid.dead)

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using ULTRAKILL.Cheats;
 using UnityEngine;
 
 namespace UltraVoice.Utilities
@@ -28,6 +27,9 @@ namespace UltraVoice.Utilities
                 EnemyType.Turret => new UnityEngine.Color(0.51f, 0.68f, 0.1f),
                 EnemyType.MaliciousFace => new UnityEngine.Color(0.76f, 0.66f, 0.56f),
                 EnemyType.MirrorReaper => new UnityEngine.Color(0.9f, 0.85f, 0.76f),
+                EnemyType.Sisyphus => new UnityEngine.Color(0.79f, 0.58f, 0.49f),
+                EnemyType.HideousMass => new UnityEngine.Color(0.67f, 0.57f, 0.57f),
+                EnemyType.Idol => new UnityEngine.Color(0.62f, 0.87f, 0.92f),
                 _ => UnityEngine.Color.white
             };
         }

@@ -2,8 +2,8 @@
 using HarmonyLib;
 using PluginConfig.API;
 using PluginConfig.API.Fields;
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using UltraVoice.Characters;
@@ -40,10 +40,14 @@ namespace UltraVoice
         public static BoolField MirrorReaperVoiceEnabled;
         public static BoolField GeryonVoiceEnabled;
         public static BoolField LeviathanVoiceEnabled;
+        public static BoolField InsurrectionistVoiceEnabled;
         public static BoolField FilthVoiceEnabled;
         public static BoolField StrayVoiceEnabled;
         public static BoolField SchismVoiceEnabled;
         public static BoolField SoldierVoiceEnabled;
+        public static BoolField StalkerVoiceEnabled;
+        public static BoolField MassVoiceEnabled;
+        public static BoolField IdolVoiceEnabled;
         public static BoolField PowerSubtitleColorEnabled;
         public static FloatField VoiceCooldown;
         public static IntField SubtitleLimit;
@@ -137,7 +141,7 @@ namespace UltraVoice
                 TogglesPanel,
                 "Enable Mannequin Voice Lines",
                 "mannequinvoice",
-                true
+                false
             );
 
             GuttertankVoiceEnabled = new BoolField(
@@ -196,32 +200,60 @@ namespace UltraVoice
                 true
             );
 
+            InsurrectionistVoiceEnabled = new BoolField(
+                TogglesPanel,
+                "Enable Insurrectionist Voice Lines",
+                "Insurrectionist",
+                true
+            );
+
             FilthVoiceEnabled = new BoolField(
                 TogglesPanel,
                 "Enable Filth Voice Lines",
                 "filthvoice",
-                true
+                false
             );
 
             StrayVoiceEnabled = new BoolField(
                 TogglesPanel,
                 "Enable Stray Voice Lines",
                 "strayvoice",
-                true
+                false
             );
 
             SchismVoiceEnabled = new BoolField(
                 TogglesPanel,
                 "Enable Schism Voice Lines",
                 "schismvoice",
-                true
+                false
             );
 
             SoldierVoiceEnabled = new BoolField(
                 TogglesPanel,
                 "Enable Soldier Voice Lines",
                 "soldiervoice",
+                false
+            );
+
+            StalkerVoiceEnabled = new BoolField(
+                TogglesPanel,
+                "Enable Stalker Voice Lines",
+                "stalkervoice",
+                false
+            );
+
+            MassVoiceEnabled = new BoolField(
+                TogglesPanel,
+                "Enable Hideous Mass Voice Lines",
+                "massvoice",
                 true
+            );
+
+            IdolVoiceEnabled = new BoolField(
+                TogglesPanel,
+                "Enable Idol Voice Lines",
+                "idolvoice",
+                false
             );
 
             PowerSubtitleColorEnabled = new BoolField(
@@ -328,9 +360,14 @@ namespace UltraVoice
             MirrorReaperCharacter.LoadVoiceLines(Logger);
             GeryonCharacter.LoadVoiceLines(Logger);
             LeviathanCharacter.LoadVoiceLines(Logger);
+            InsurrectionistCharacter.LoadVoiceLines(Logger);
+            HideousMassCharacter.LoadVoiceLines(Logger);
             FilthCharacter.LoadVoiceLines(Logger);
             StrayCharacter.LoadVoiceLines(Logger);
             SchismCharacter.LoadVoiceLines(Logger);
+            SoldierCharacter.LoadVoiceLines(Logger);
+            StalkerCharacter.LoadVoiceLines(Logger);
+            IdolCharacter.LoadVoiceLines(Logger);
         }
 
         public static AudioClip LoadClip(string resourcePath)
@@ -385,11 +422,20 @@ namespace UltraVoice
                 playAction();
             }
         }
-    }
-}
 
-[HarmonyPatch(typeof(GabrielVoice), "Hurt")]
-class GabrielHurtPatch
-{
-    static bool Prefix() => false;
+        public static void SetField(Type t, object inst, string name, object value)
+        {
+            var f = AccessTools.Field(t, name);
+            if (f != null)
+                f.SetValue(inst, value);
+        }
+
+        public static void SetArrayField(Type t, object inst, string name, Type elementType)
+        {
+            var f = AccessTools.Field(t, name);
+            if (f == null) return;
+            var empty = Array.CreateInstance(elementType, 0);
+            f.SetValue(inst, empty);
+        }
+    }
 }

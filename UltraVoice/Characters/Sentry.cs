@@ -2,7 +2,6 @@
 using System.Collections;
 using UnityEngine;
 using UltraVoice.Utilities;
-using System;
 
 namespace UltraVoice.Characters
 {

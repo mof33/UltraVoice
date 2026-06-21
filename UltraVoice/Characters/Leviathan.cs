@@ -46,18 +46,18 @@ namespace UltraVoice.Characters
             logger.LogInfo("Leviathan voice lines loaded successfully!");
         }
 
-        [HarmonyPatch(typeof(LeviathanHead), nameof(LeviathanHead.Update))]
+        [HarmonyPatch(typeof(LeviathanHead), nameof(LeviathanHead.StopAction))]
         class LeviathanChatterPatch
         {
-            static void Postfix(LeviathanHead __instance)
+            static void Prefix(LeviathanHead __instance)
             {
                 if (!UltraVoicePlugin.LeviathanVoiceEnabled.value)
                     return;
 
-                if (!VoiceManager.CheckCooldown(__instance, 10f))
+                if (!VoiceManager.CheckCooldown(__instance, 15f))
                     return;
 
-                if (__instance.inAction || !__instance.active)
+                if (!__instance.active)
                     return;
 
                 __instance.attackCooldown = 3.5f;

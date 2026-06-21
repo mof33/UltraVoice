@@ -45,7 +45,7 @@ namespace UltraVoice.Characters
             if (UnityEngine.Random.Range(0f, 1f) < 0.75f)
                 return;
 
-            VoiceManager.PlayRandomVoice(__instance, "Mannequin",
+            VoiceManager.PlayRandomVoice(__instance, "Stray",
                 StrayCharacter.ChatterClips,
                 null,
                 randomPitch: true
@@ -62,7 +62,7 @@ namespace UltraVoice.Characters
 
             if (__instance.eid.enemyType != EnemyType.Stray) return;
 
-            VoiceManager.CreateVoiceSource(__instance, "Mannequin",
+            VoiceManager.CreateVoiceSource(__instance, "Stray",
                 StrayCharacter.AttackClip,
                 null,
                 randomPitch: true
@@ -79,7 +79,7 @@ namespace UltraVoice.Characters
 
             if (__instance.eid.enemyType != EnemyType.Stray) return;
 
-            VoiceManager.CreateVoiceSource(__instance, "Mannequin",
+            VoiceManager.CreateVoiceSource(__instance, "Stray",
                 StrayCharacter.DeathClip,
                 null,
                 true,

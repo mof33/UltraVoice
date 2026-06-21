@@ -74,15 +74,6 @@ namespace UltraVoice.Characters
 
     // STREETCLEANER PATCHES
 
-    [HarmonyPatch(typeof(Streetcleaner), "Start")]
-    class StreetcleanerSpawnTrackPatch
-    {
-        static void Postfix(Streetcleaner __instance)
-        {
-            VoiceManager.enemySpawnTimes[__instance] = Time.time;
-        }
-    }
-
     [HarmonyPatch(typeof(Streetcleaner), "Update")]
     class StreetcleanerChatterPatch
     {
@@ -98,9 +89,6 @@ namespace UltraVoice.Characters
                 return;
 
             if (!VoiceManager.CheckCooldown(__instance, 4f))
-                return;
-
-            if (VoiceManager.TooSoonAfterSpawn(__instance, 1f))
                 return;
 
             if (Random.Range(0f, 1f) < 0.75)

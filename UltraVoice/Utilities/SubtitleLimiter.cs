@@ -11,165 +11,226 @@ namespace UltraVoice.Patches
     {
         public static void Prefix(SubtitleController __instance)
         {
-            int max = UltraVoicePlugin.SubtitleLimit.value;
-            Transform container = __instance.container;
-            if (container == null) return;
-
-            int activeCount = 0;
-            for (int i = 0; i < container.childCount; i++)
+            try
             {
-                var sub = container.GetChild(i).GetComponent<Subtitle>();
-                if (sub != null && sub.gameObject.activeInHierarchy) activeCount++;
-            }
+                if (__instance == null) return;
 
-            while (activeCount >= max)
-            {
-                Subtitle oldest = null;
-                int lowestSibling = int.MaxValue;
+                int max = (UltraVoicePlugin.SubtitleLimit != null) ? UltraVoicePlugin.SubtitleLimit.value : 5;
+                Transform container = __instance.container;
+                if (container == null) return;
+
+                int activeCount = 0;
                 for (int i = 0; i < container.childCount; i++)
                 {
                     var child = container.GetChild(i);
                     var sub = child.GetComponent<Subtitle>();
-                    if (sub == null || !child.gameObject.activeInHierarchy) continue;
-                    int idx = child.GetSiblingIndex();
-                    if (idx < lowestSibling)
-                    {
-                        lowestSibling = idx;
-                        oldest = sub;
-                    }
+                    if (sub != null && child.gameObject.activeInHierarchy) activeCount++;
                 }
 
-                if (oldest == null) break;
+                while (activeCount >= max)
+                {
+                    Subtitle oldest = null;
+                    int lowestSibling = int.MaxValue;
+                    for (int i = 0; i < container.childCount; i++)
+                    {
+                        var child = container.GetChild(i);
+                        var sub = child.GetComponent<Subtitle>();
+                        if (sub == null || !child.gameObject.activeInHierarchy) continue;
+                        int idx = child.GetSiblingIndex();
+                        if (idx < lowestSibling)
+                        {
+                            lowestSibling = idx;
+                            oldest = sub;
+                        }
+                    }
 
-                Transform parent = oldest.transform.parent;
-                Object.Destroy(oldest.gameObject);
-                activeCount--;
-                if (parent != null) ForceRebuildContainerLayout(parent);
+                    if (oldest == null) break;
+
+                    Transform parent = oldest.transform.parent;
+                    Object.Destroy(oldest.gameObject);
+                    activeCount--;
+                    if (parent != null) ForceRebuildContainerLayout(parent);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                Debug.LogError($"SubtitleLimitPatch.Prefix error: {ex}");
             }
         }
 
         public static void Postfix(string caption, AudioSource audioSource, bool ignoreSetting, SubtitleController __instance)
         {
-            if (audioSource == null) return;
-            Transform container = __instance.container;
-            if (container == null) return;
-
-            Subtitle created = null;
-            for (int i = container.childCount - 1; i >= 0; i--)
+            try
             {
-                var sub = container.GetChild(i).GetComponent<Subtitle>();
-                if (sub != null)
+                if (__instance == null) return;
+
+                Transform container = __instance.container;
+                if (container == null) return;
+
+                Subtitle created = null;
+                for (int i = container.childCount - 1; i >= 0; i--)
                 {
-                    created = sub;
-                    break;
+                    var sub = container.GetChild(i).GetComponent<Subtitle>();
+                    if (sub != null)
+                    {
+                        created = sub;
+                        break;
+                    }
+                }
+
+                if (created == null) return;
+
+                if (created.GetComponent<SubtitleWatcher>() == null)
+                {
+                    var watcher = created.gameObject.AddComponent<SubtitleWatcher>();
+                    watcher.source = audioSource;      // may be null
+                    watcher.controller = __instance;
+                    watcher.spawnTime = Time.time;    // set before starting
+                    watcher.StartWatching();          // start coroutine now that spawnTime is set
                 }
             }
-
-            if (created == null) return;
-
-            if (created.GetComponent<SubtitleAudioWatcher>() == null)
+            catch (System.Exception ex)
             {
-                var watcher = created.gameObject.AddComponent<SubtitleAudioWatcher>();
-                watcher.source = audioSource;
-                watcher.controller = __instance;
+                Debug.LogError($"SubtitleLimitPatch.Postfix error: {ex}");
             }
         }
 
         public static void ForceRebuildContainerLayout(Transform container)
         {
+            if (container == null) return;
             var rect = container as RectTransform ?? container.GetComponent<RectTransform>();
             if (rect != null) LayoutRebuilder.ForceRebuildLayoutImmediate(rect);
         }
     }
 
-    public class SubtitleAudioWatcher : MonoBehaviour
+    public class SubtitleWatcher : MonoBehaviour
     {
         public AudioSource source;
         public SubtitleController controller;
+        public float spawnTime;
 
         private Subtitle subtitle;
         private CanvasGroup group;
         private float fadeOutSpeed;
-        private bool triggered;
-        private Coroutine waitCoroutine;
+        private Coroutine monitorCoroutine;
 
-        private const float WaitBeforeFade = 2f;
+        private const float WaitBeforeFadeAfterAudio = 5f;
+        private const float LifetimeBeforeAutoFade = 5f;
         private const float FallbackFadeDuration = 0.6f;
 
         private void Awake()
         {
             subtitle = GetComponent<Subtitle>();
-            // minimal: assume subtitle exists because watcher is attached to it; still guard group lookup
-            group = subtitle.group ?? subtitle.GetComponent<CanvasGroup>();
-            fadeOutSpeed = subtitle.fadeOutSpeed;
-        }
-
-        private void OnDestroy()
-        {
-            if (waitCoroutine != null) StopCoroutine(waitCoroutine);
-        }
-
-        private void Update()
-        {
-            if (triggered) return;
-
-            if (source == null || !source.isPlaying)
+            if (subtitle != null)
             {
-                triggered = true;
-
-                int active = CountActiveSubtitles();
-                int max = UltraVoicePlugin.SubtitleLimit.value;
-                if (active > max)
-                {
-                    Transform parent = subtitle.transform.parent;
-                    Object.Destroy(subtitle.gameObject);
-                    SubtitleLimitPatch.ForceRebuildContainerLayout(parent);
-                    Destroy(this);
-                    return;
-                }
-
-                waitCoroutine = StartCoroutine(WaitThenFade());
+                group = subtitle.group ?? subtitle.GetComponent<CanvasGroup>();
+                fadeOutSpeed = subtitle.fadeOutSpeed;
             }
         }
 
-        private IEnumerator WaitThenFade()
+        public void StartWatching()
         {
-            float elapsed = 0f;
-            while (elapsed < WaitBeforeFade)
+            if (monitorCoroutine == null)
+                monitorCoroutine = StartCoroutine(MonitorLifecycle());
+        }
+
+        private void OnDisable()
+        {
+            if (monitorCoroutine != null) StopCoroutine(monitorCoroutine);
+        }
+
+        private IEnumerator MonitorLifecycle()
+        {
+            while (true)
             {
                 int active = CountActiveSubtitles();
-                int max = UltraVoicePlugin.SubtitleLimit.value;
+                int max = (UltraVoicePlugin.SubtitleLimit != null) ? UltraVoicePlugin.SubtitleLimit.value : 5;
                 if (active > max)
                 {
                     Transform parent = subtitle.transform.parent;
                     Object.Destroy(subtitle.gameObject);
                     SubtitleLimitPatch.ForceRebuildContainerLayout(parent);
                     Destroy(this);
+                    yield break;
+                }
+
+                if (Time.time - spawnTime >= LifetimeBeforeAutoFade)
+                {
+                    yield return StartCoroutine(FadeOutAndDestroy());
                     yield break;
                 }
 
                 if (source != null && source.isPlaying)
                 {
-                    triggered = false;
-                    yield break;
+                    while (source != null && source.isPlaying)
+                    {
+                        active = CountActiveSubtitles();
+                        if (active > max)
+                        {
+                            Transform parent = subtitle.transform.parent;
+                            Object.Destroy(subtitle.gameObject);
+                            SubtitleLimitPatch.ForceRebuildContainerLayout(parent);
+                            Destroy(this);
+                            yield break;
+                        }
+
+                        if (Time.time - spawnTime >= LifetimeBeforeAutoFade)
+                        {
+                            yield return StartCoroutine(FadeOutAndDestroy());
+                            yield break;
+                        }
+
+                        yield return null;
+                    }
+
+                    // audio stopped: wait 2s, with checks
+                    float waited = 0f;
+                    while (waited < WaitBeforeFadeAfterAudio)
+                    {
+                        active = CountActiveSubtitles();
+                        if (active > max)
+                        {
+                            Transform parent = subtitle.transform.parent;
+                            Object.Destroy(subtitle.gameObject);
+                            SubtitleLimitPatch.ForceRebuildContainerLayout(parent);
+                            Destroy(this);
+                            yield break;
+                        }
+
+                        if (source != null && source.isPlaying)
+                        {
+                            break;
+                        }
+
+                        if (Time.time - spawnTime >= LifetimeBeforeAutoFade)
+                        {
+                            yield return StartCoroutine(FadeOutAndDestroy());
+                            yield break;
+                        }
+
+                        waited += Time.deltaTime;
+                        yield return null;
+                    }
+                }
+                else
+                {
+                    float timeUntilLifetime = LifetimeBeforeAutoFade - (Time.time - spawnTime);
+                    if (timeUntilLifetime > 0f)
+                    {
+                        float sleep = Mathf.Min(0.2f, timeUntilLifetime);
+                        yield return new WaitForSeconds(sleep);
+                    }
                 }
 
-                elapsed += Time.deltaTime;
                 yield return null;
             }
-
-            if (subtitle == null)
-            {
-                Destroy(this);
-                yield break;
-            }
-
-            yield return StartCoroutine(FadeOutAndDestroy());
         }
 
         private int CountActiveSubtitles()
         {
-            var container = controller.container;
+            SubtitleController ctrl = controller ?? MonoSingleton<SubtitleController>.Instance;
+            Transform container = (ctrl != null) ? ctrl.container : null;
+
             if (container != null)
             {
                 int c = 0;
@@ -191,9 +252,9 @@ namespace UltraVoice.Patches
         {
             if (group == null)
             {
-                Transform parent = subtitle.transform.parent;
+                Transform p = subtitle.transform.parent;
                 Object.Destroy(subtitle.gameObject);
-                SubtitleLimitPatch.ForceRebuildContainerLayout(parent);
+                SubtitleLimitPatch.ForceRebuildContainerLayout(p);
                 Destroy(this);
                 yield break;
             }
@@ -220,7 +281,7 @@ namespace UltraVoice.Patches
             }
 
             group.alpha = 0f;
-            controller.NotifyHoldEnd(subtitle);
+            MonoSingleton<SubtitleController>.Instance?.NotifyHoldEnd(subtitle);
             Transform parentAfter = subtitle.transform.parent;
             Object.Destroy(subtitle.gameObject);
             SubtitleLimitPatch.ForceRebuildContainerLayout(parentAfter);

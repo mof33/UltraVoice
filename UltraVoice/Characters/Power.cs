@@ -46,30 +46,21 @@ namespace UltraVoice.Characters
 
         public static void Postfix(string caption)
         {
-            if (UltraVoicePlugin.PowerSubtitleColorEnabled != null &&
-                !UltraVoicePlugin.PowerSubtitleColorEnabled.value)
+            bool isPowerLine = PowerLines.Contains(caption);
+            if (!isPowerLine)
                 return;
 
             if (caption == "Enough!" && SceneHelper.CurrentScene != "Level 8-3")
                 return;
 
             var controller = MonoSingleton<SubtitleController>.Instance;
-            if (controller == null)
-                return;
 
-            var subtitle = controller.previousSubtitle;
-            if (subtitle == null)
-                return;
+            var container = controller.container;
 
-            var text = subtitle.GetComponentInChildren<TMP_Text>();
+            var lastChild = container.GetChild(container.childCount - 1);
+            var subtitleComp = lastChild.GetComponent<Subtitle>();
 
-            bool isPowerLine = PowerLines.Contains(caption);
-            if (!isPowerLine)
-                return;
-
-            if (text == null)
-                return;
-
+            var text = subtitleComp.GetComponentInChildren<TMP_Text>();
             text.color = PowerYellow;
         }
     }

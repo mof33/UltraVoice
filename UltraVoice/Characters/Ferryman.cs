@@ -42,9 +42,6 @@ namespace UltraVoice.Characters
 
         public static bool IsAgonisOrRudraksha(Ferryman ferryman)
         {
-            if (ferryman == null)
-                return false;
-
             Transform t = ferryman.transform;
 
             while (t != null)

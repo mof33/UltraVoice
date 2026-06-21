@@ -16,6 +16,33 @@
 	  <None Remove="Resources\Geryon\ger_Chatter7.wav" />
 	  <None Remove="Resources\Geryon\ger_Chatter8.wav" />
 	  <None Remove="Resources\Geryon\ger_Chatter9.wav" />
+	  <None Remove="Resources\HideousMass\mass_Death1.wav" />
+	  <None Remove="Resources\HideousMass\mass_Death2.wav" />
+	  <None Remove="Resources\HideousMass\mass_Enrage1.wav" />
+	  <None Remove="Resources\HideousMass\mass_Enrage2.wav" />
+	  <None Remove="Resources\HideousMass\mass_Enrage3.wav" />
+	  <None Remove="Resources\HideousMass\mass_Enrage4.wav" />
+	  <None Remove="Resources\HideousMass\mass_Generic1.wav" />
+	  <None Remove="Resources\HideousMass\mass_Generic2.wav" />
+	  <None Remove="Resources\HideousMass\mass_Generic3.wav" />
+	  <None Remove="Resources\HideousMass\mass_Generic4.wav" />
+	  <None Remove="Resources\HideousMass\mass_Generic5.wav" />
+	  <None Remove="Resources\HideousMass\mass_Harpoon1.wav" />
+	  <None Remove="Resources\HideousMass\mass_Harpoon2.wav" />
+	  <None Remove="Resources\HideousMass\mass_Harpoon3.wav" />
+	  <None Remove="Resources\HideousMass\mass_Parried1.wav" />
+	  <None Remove="Resources\HideousMass\mass_Parried2.wav" />
+	  <None Remove="Resources\HideousMass\mass_Parried3.wav" />
+	  <None Remove="Resources\HideousMass\mass_SpawnSpecial.wav" />
+	  <None Remove="Resources\Idol\idol_Spawn1.wav" />
+	  <None Remove="Resources\Idol\idol_Spawn2.wav" />
+	  <None Remove="Resources\Idol\idol_Spawn3.wav" />
+	  <None Remove="Resources\Idol\idol_Spawn4.wav" />
+	  <None Remove="Resources\Idol\idol_Spawn5.wav" />
+	  <None Remove="Resources\Idol\idol_Vulnerable1.wav" />
+	  <None Remove="Resources\Idol\idol_Vulnerable2.wav" />
+	  <None Remove="Resources\Idol\idol_Vulnerable3.wav" />
+	  <None Remove="Resources\Idol\idol_Vulnerable4.wav" />
 	  <None Remove="Resources\Insurrectionist\insur_Attack1.wav" />
 	  <None Remove="Resources\Insurrectionist\insur_Attack2.wav" />
 	  <None Remove="Resources\Insurrectionist\insur_Attack3.wav" />
@@ -43,6 +70,15 @@
 	  <None Remove="Resources\Schism\sch_Chatter2.wav" />
 	  <None Remove="Resources\Schism\sch_Chatter3.wav" />
 	  <None Remove="Resources\Schism\sch_Death.wav" />
+	  <None Remove="Resources\Soldier\sol_Attack.wav" />
+	  <None Remove="Resources\Soldier\sol_Chatter1.wav" />
+	  <None Remove="Resources\Soldier\sol_Chatter2.wav" />
+	  <None Remove="Resources\Soldier\sol_Chatter3.wav" />
+	  <None Remove="Resources\Soldier\sol_Death.wav" />
+	  <None Remove="Resources\Stalker\stalker_Chatter1.wav" />
+	  <None Remove="Resources\Stalker\stalker_Chatter2.wav" />
+	  <None Remove="Resources\Stalker\stalker_Chatter3.wav" />
+	  <None Remove="Resources\Stalker\stalker_Explode.wav" />
 	  <None Remove="Resources\Stray\str_Attack.wav" />
 	  <None Remove="Resources\Stray\str_Chatter1.wav" />
 	  <None Remove="Resources\Stray\str_Chatter2.wav" />
@@ -170,6 +206,33 @@
 	  <EmbeddedResource Include="Resources\Guttertank\gt_TripPain1.wav" />
 	  <EmbeddedResource Include="Resources\Guttertank\gt_TripPain2.wav" />
 	  <EmbeddedResource Include="Resources\Guttertank\gt_TripPain3.wav" />
+	  <EmbeddedResource Include="Resources\HideousMass\mass_Death1.wav" />
+	  <EmbeddedResource Include="Resources\HideousMass\mass_Death2.wav" />
+	  <EmbeddedResource Include="Resources\HideousMass\mass_Enrage1.wav" />
+	  <EmbeddedResource Include="Resources\HideousMass\mass_Enrage2.wav" />
+	  <EmbeddedResource Include="Resources\HideousMass\mass_Enrage3.wav" />
+	  <EmbeddedResource Include="Resources\HideousMass\mass_Enrage4.wav" />
+	  <EmbeddedResource Include="Resources\HideousMass\mass_Generic1.wav" />
+	  <EmbeddedResource Include="Resources\HideousMass\mass_Generic2.wav" />
+	  <EmbeddedResource Include="Resources\HideousMass\mass_Generic3.wav" />
+	  <EmbeddedResource Include="Resources\HideousMass\mass_Generic4.wav" />
+	  <EmbeddedResource Include="Resources\HideousMass\mass_Generic5.wav" />
+	  <EmbeddedResource Include="Resources\HideousMass\mass_Harpoon1.wav" />
+	  <EmbeddedResource Include="Resources\HideousMass\mass_Harpoon2.wav" />
+	  <EmbeddedResource Include="Resources\HideousMass\mass_Harpoon3.wav" />
+	  <EmbeddedResource Include="Resources\HideousMass\mass_Parried1.wav" />
+	  <EmbeddedResource Include="Resources\HideousMass\mass_Parried2.wav" />
+	  <EmbeddedResource Include="Resources\HideousMass\mass_Parried3.wav" />
+	  <EmbeddedResource Include="Resources\HideousMass\mass_SpawnSpecial.wav" />
+	  <EmbeddedResource Include="Resources\Idol\idol_Spawn1.wav" />
+	  <EmbeddedResource Include="Resources\Idol\idol_Spawn2.wav" />
+	  <EmbeddedResource Include="Resources\Idol\idol_Spawn3.wav" />
+	  <EmbeddedResource Include="Resources\Idol\idol_Spawn4.wav" />
+	  <EmbeddedResource Include="Resources\Idol\idol_Spawn5.wav" />
+	  <EmbeddedResource Include="Resources\Idol\idol_Vulnerable1.wav" />
+	  <EmbeddedResource Include="Resources\Idol\idol_Vulnerable2.wav" />
+	  <EmbeddedResource Include="Resources\Idol\idol_Vulnerable3.wav" />
+	  <EmbeddedResource Include="Resources\Idol\idol_Vulnerable4.wav" />
 	  <EmbeddedResource Include="Resources\Insurrectionist\insur_Attack1.wav" />
 	  <EmbeddedResource Include="Resources\Insurrectionist\insur_Attack2.wav" />
 	  <EmbeddedResource Include="Resources\Insurrectionist\insur_Attack3.wav" />
@@ -334,6 +397,15 @@
 	  <EmbeddedResource Include="Resources\Sentry\tur_ShotHit3.wav" />
 	  <EmbeddedResource Include="Resources\Sentry\tur_ShotMissed1.wav" />
 	  <EmbeddedResource Include="Resources\Sentry\tur_ShotMissed2.wav" />
+	  <EmbeddedResource Include="Resources\Soldier\sol_Attack.wav" />
+	  <EmbeddedResource Include="Resources\Soldier\sol_Chatter1.wav" />
+	  <EmbeddedResource Include="Resources\Soldier\sol_Chatter2.wav" />
+	  <EmbeddedResource Include="Resources\Soldier\sol_Chatter3.wav" />
+	  <EmbeddedResource Include="Resources\Soldier\sol_Death.wav" />
+	  <EmbeddedResource Include="Resources\Stalker\stalker_Chatter1.wav" />
+	  <EmbeddedResource Include="Resources\Stalker\stalker_Chatter2.wav" />
+	  <EmbeddedResource Include="Resources\Stalker\stalker_Chatter3.wav" />
+	  <EmbeddedResource Include="Resources\Stalker\stalker_Explode.wav" />
 	  <EmbeddedResource Include="Resources\Stray\str_Attack.wav" />
 	  <EmbeddedResource Include="Resources\Stray\str_Chatter1.wav" />
 	  <EmbeddedResource Include="Resources\Stray\str_Chatter2.wav" />
@@ -499,6 +571,9 @@
 		</Reference>
 		<Reference Include="UnityEngine.CoreModule">
 			<HintPath>C:\Program Files (x86)\Steam\steamapps\common\ULTRAKILL\ULTRAKILL_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.PhysicsModule">
+		  <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\ULTRAKILL\ULTRAKILL_Data\Managed\UnityEngine.PhysicsModule.dll</HintPath>
 		</Reference>
 		<Reference Include="UnityEngine.UI">
 		  <HintPath>C:\Program Files (x86)\Steam\steamapps\common\ULTRAKILL\ULTRAKILL_Data\Managed\UnityEngine.UI.dll</HintPath>

@@ -45,7 +45,7 @@ namespace UltraVoice.Characters
             if (UnityEngine.Random.Range(0f, 1f) < 0.75f)
                 return;
 
-            VoiceManager.PlayRandomVoice(__instance, "Mannequin",
+            VoiceManager.PlayRandomVoice(__instance, "Schism",
                 SchismCharacter.ChatterClips,
                 null,
                 randomPitch: true
@@ -62,7 +62,7 @@ namespace UltraVoice.Characters
 
             if (__instance.eid.enemyType != EnemyType.Schism) return;
 
-            VoiceManager.CreateVoiceSource(__instance, "Mannequin",
+            VoiceManager.CreateVoiceSource(__instance, "Schism",
                 SchismCharacter.AttackClip,
                 null,
                 randomPitch: true
@@ -79,7 +79,7 @@ namespace UltraVoice.Characters
 
             if (__instance.eid.enemyType != EnemyType.Schism) return;
 
-            VoiceManager.CreateVoiceSource(__instance, "Mannequin",
+            VoiceManager.CreateVoiceSource(__instance, "Schism",
                 SchismCharacter.DeathClip,
                 null,
                 true,

@@ -96,14 +96,12 @@ namespace UltraVoice.Characters
 
         public static bool IsAgony(SwordsMachine sm)
         {
-            if (sm == null) return false;
             string n = sm.gameObject.name;
             return n.Contains("Agony");
         }
 
         public static bool IsTundra(SwordsMachine sm)
         {
-            if (sm == null) return false;
             string n = sm.gameObject.name;
             return n.Contains("Tundra");
         }
