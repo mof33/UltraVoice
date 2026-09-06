@@ -1,6 +1,6 @@
 # UltraVoice
 
-A mod for ULTRAKILl that adds custom voice lines to enemies, giving them more personality during combat and cutscenes.
+A mod for ULTRAKILL that adds custom voice lines to enemies, giving them more personality during combat and cutscenes.
 
 This mod is not maintained anymore. Visit the new fork, UltraVoice Retaken, at these links:
 
